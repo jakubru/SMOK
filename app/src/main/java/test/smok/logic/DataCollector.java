@@ -7,5 +7,5 @@ import android.content.Context;
  */
 
 public interface DataCollector {
-    String collect(Context context);
+    String [] collect(Context context);
 }
