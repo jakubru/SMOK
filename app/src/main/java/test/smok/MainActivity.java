@@ -50,8 +50,10 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.SomeName);
         String [] tmp = g.collect(this);
         String tmp1 = "";
-        for(int i = 0; i <tmp.length; i++ ){
-            tmp1 += tmp[i];
+        if(tmp!=null) {
+            for (int i = 0; i < tmp.length; i++) {
+                tmp1 += tmp[i];
+            }
         }
         textView.setText(tmp1);
     }
