@@ -48,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
     public void onRefreshButtonClick(View view){
         GSMDataCollector g = new GSMDataCollector();
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        textView.setText(g.collect(this));
+        String [] tmp = g.collect(this);
+        String tmp1 = "";
+        for(int i = 0; i <tmp.length; i++ ){
+            tmp1 += tmp[i];
+        }
+        textView.setText(tmp1);
     }
 }
