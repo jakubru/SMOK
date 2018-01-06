@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">SMOK</string>
     <string name="action_settings">Settings</string>
+    <string name="lac">LAC</string>
+    <string name="arfcn">ARFCN</string>
+    <string name="bsic">BSIC</string>
+    <string name="mcc">MCC</string>
+    <string name="cid">CID</string>
+    <string name="mnc">MNC</string>
+    <string name="psc">PSC</string>
+    <string name="asu_level">ASU Level</string>
+    <string name="dbm">DBM</string>
+    <string name="level">Level</string>
+    <string name="timing_advance">Timing Advance</string>
 </resources>
