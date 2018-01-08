@@ -1,6 +1,15 @@
 package test.smok.logic;
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.provider.Settings;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.telephony.CellIdentityGsm;
 import android.telephony.CellIdentityLte;
 import android.telephony.CellIdentityWcdma;
@@ -15,10 +24,15 @@ import android.telephony.CellSignalStrengthLte;
 import android.telephony.CellSignalStrengthWcdma;
 import android.telephony.CellSignalStrengthCdma;
 import android.telephony.TelephonyManager;
+import android.util.SparseIntArray;
+import android.view.View;
 
 
 import java.lang.annotation.Target;
 import java.util.List;
+
+import test.smok.MainActivity;
+import test.smok.R;
 
 
 /**
@@ -27,14 +41,58 @@ import java.util.List;
 @TargetApi(18)
 public class GSMDataCollector implements DataCollector {
     private TelephonyManager mTelephonyManager;
-
-    public GSMDataCollector()
+    private static final int REQUEST_PERMISSIONS = 124;
+    private SparseIntArray mErrorString;
+    private AppCompatActivity view;
+    private boolean hasAllPermissions = false;
+    public GSMDataCollector(AppCompatActivity view)
     {
+        this.view = view;
+        mErrorString = new SparseIntArray();
 
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+        for (int permission : grantResults) {
+            permissionCheck = permissionCheck + permission;
+        }
+        if ((grantResults.length > 0) && permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            hasAllPermissions = true;
+        } else {
+            hasAllPermissions = false;
+            Snackbar.make(view.findViewById(android.R.id.content), mErrorString.get(requestCode),
+                    Snackbar.LENGTH_INDEFINITE).setAction("ENABLE",
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent();
+                            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.addCategory(Intent.CATEGORY_DEFAULT);
+                            intent.setData(Uri.parse("package:" + view.getPackageName()));
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                            view.startActivity(intent);
+                        }
+                    }).show();
+        }
     }
 
     @Override
     public String [] collect(Context context) {
+        requestAppPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION},
+                R.string.runtime_permissions_txt,
+                REQUEST_PERMISSIONS);
+        String[] result = null;
+        if(hasAllPermissions){
+            result = collectGSM(context);
+        }
+        return result;
+
+    }
+    private String [] collectGSM(Context context) {
         List<CellInfo> cellInfoList = null;
         String [] returnString;
         this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
@@ -101,5 +159,35 @@ public class GSMDataCollector implements DataCollector {
             i++;
         }
         return returnString;
+    }
+    public void requestAppPermissions(final String[] requestedPermissions,
+                                      final int stringId, final int requestCode) {
+        mErrorString.put(requestCode, stringId);
+        int permissionCheck = PackageManager.PERMISSION_GRANTED;
+        boolean shouldShowRequestPermissionRationale = false;
+        for (String permission : requestedPermissions) {
+            permissionCheck = permissionCheck + ContextCompat.checkSelfPermission(view, permission);
+            if(permissionCheck<=0){
+                int tmp = permissionCheck;
+            }
+            shouldShowRequestPermissionRationale = shouldShowRequestPermissionRationale || ActivityCompat.shouldShowRequestPermissionRationale(view, permission);
+        }
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            if (shouldShowRequestPermissionRationale) {
+                hasAllPermissions = false;
+                Snackbar.make(view.findViewById(android.R.id.content), stringId,
+                        Snackbar.LENGTH_INDEFINITE).setAction("GRANT",
+                        new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ActivityCompat.requestPermissions(view, requestedPermissions, requestCode);
+                            }
+                        }).show();
+            } else {
+                ActivityCompat.requestPermissions(view, requestedPermissions, requestCode);
+            }
+        } else {
+            hasAllPermissions = true;
+        }
     }
 }
