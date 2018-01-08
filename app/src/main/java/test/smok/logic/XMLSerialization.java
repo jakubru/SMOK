@@ -50,6 +50,7 @@ public class XMLSerialization {
                         Toast.LENGTH_SHORT).show();
             }
         } else {
+            Object o = MainActivity.getContext();
             Toast.makeText(MainActivity.getContext(),
                     "Create new "+path,
                     Toast.LENGTH_SHORT).show();

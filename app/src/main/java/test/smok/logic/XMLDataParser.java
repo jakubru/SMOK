@@ -36,10 +36,12 @@ public class XMLDataParser extends Parser {
         XMLSerialization xmlSerialization = new XMLSerialization();
         xmlSerialization.getElementsXML();
         NetworkData networkData = null;
-        for (String stringElement : DataCollectorArray) {
-            String[] element = stringElement.split(delimiterOne);
-            networkData = createNetworkData(element, delimiterTwo);
-            xmlSerialization.addElement(networkData);
+        if(DataCollectorArray!=null) {
+            for (String stringElement : DataCollectorArray) {
+                String[] element = stringElement.split(delimiterOne);
+                networkData = createNetworkData(element, delimiterTwo);
+                xmlSerialization.addElement(networkData);
+            }
         }
         xmlSerialization.writeElementsXML();
     }
