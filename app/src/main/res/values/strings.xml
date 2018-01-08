@@ -12,5 +12,4 @@
     <string name="dbm">DBM</string>
     <string name="level">Level</string>
     <string name="timing_advance">Timing Advance</string>
-    <string name="runtime_permissions_txt">Please enable ALL permissions from app settings.</string>
 </resources>
