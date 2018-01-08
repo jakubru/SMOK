@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import test.smok.logic.GSMDataCollector;
+import test.smok.logic.XMLDataParser;
 
 public class MainActivity extends AppCompatActivity{
     public static final int LOCATION_REQUEST_CODE = 0;
@@ -60,7 +61,12 @@ public class MainActivity extends AppCompatActivity{
     public void onRefreshButtonClick(View view){
         GSMDataCollector g = new GSMDataCollector(this);
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String [] tmp = g.collect(this);
+        XMLDataParser xmlDataParser=new XMLDataParser(g);
+        String [] tmp =
+//                xmlDataParser.getDataCollectorArray();
+                g.collect(this);
+        xmlDataParser.parse(';',':');
+
         String tmp1 = "";
         if(tmp!=null){
             for(int i = 0; i <tmp.length; i++ ){
@@ -70,4 +76,8 @@ public class MainActivity extends AppCompatActivity{
 
         textView.setText(tmp1);
     }
+    public static Context getContext(){
+        return MainActivity.context;
+    }
+
 }
