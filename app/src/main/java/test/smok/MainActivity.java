@@ -1,16 +1,9 @@
 package test.smok;
 
-import android.Manifest;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
@@ -21,12 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import test.smok.logic.GSMDataCollector;
+import test.smok.logic.XMLDataParser;
 
-public class MainActivity extends AppCompatActivity  implements ActivityCompat.OnRequestPermissionsResultCallback{
-    public static final int LOCATION_REQUEST_CODE = 0;
-    public static final int PHONE_REQUEST_CODE = 1;
-    private static final int REQUEST_PERMISSIONS = 124;
-    private SparseIntArray mErrorString;
+public class MainActivity extends AppCompatActivity {
+
+    public static Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +27,7 @@ public class MainActivity extends AppCompatActivity  implements ActivityCompat.O
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mErrorString = new SparseIntArray();
+        MainActivity.context=getApplicationContext();
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -162,11 +155,20 @@ public class MainActivity extends AppCompatActivity  implements ActivityCompat.O
     private void refreshClick(){
         GSMDataCollector g = new GSMDataCollector();
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String [] tmp = g.collect(this);
+        XMLDataParser xmlDataParser=new XMLDataParser(g);
+        String [] tmp =
+//                xmlDataParser.getDataCollectorArray();
+                g.collect(this);
+        xmlDataParser.parse(';',':');
+
         String tmp1 = "";
         for(int i = 0; i <tmp.length; i++ ){
             tmp1 += tmp[i];
         }
         textView.setText(tmp1);
     }
+    public static Context getContext(){
+        return MainActivity.context;
+    }
+
 }
