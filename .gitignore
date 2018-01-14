@@ -7,3 +7,7 @@
 /build
 /captures
 .externalNativeBuild
+
+app/src/main/java/test\.java
+
+\.idea/misc\.xml
