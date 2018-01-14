@@ -33,17 +33,17 @@ public class XMLDataParser extends Parser {
     public void parse(char delimiter1, char delimiter2) {
         String delimiterOne = delimiter1 + "";
         String delimiterTwo = delimiter2 + "";
-        XMLSerialization xmlSerialization = new XMLSerialization();
-        xmlSerialization.getElementsXML();
+        WriteToXML writeToXML=new WriteToXML();
+//        XMLSerialization xmlSerialization = new XMLSerialization();
+//        xmlSerialization.getElementsXML();
         NetworkData networkData = null;
-        if(DataCollectorArray!=null) {
-            for (String stringElement : DataCollectorArray) {
-                String[] element = stringElement.split(delimiterOne);
-                networkData = createNetworkData(element, delimiterTwo);
-                xmlSerialization.addElement(networkData);
-            }
+        for (String stringElement : DataCollectorArray) {
+            String[] element = stringElement.split(delimiterOne);
+            writeToXML.write(element,delimiterTwo);
+//            networkData = createNetworkData(element, delimiterTwo);
+//            xmlSerialization.addElement(networkData);
         }
-        xmlSerialization.writeElementsXML();
+//        xmlSerialization.writeElementsXML();
     }
 
 
