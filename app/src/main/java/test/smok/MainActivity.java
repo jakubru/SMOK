@@ -4,12 +4,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.GSMDataCollector;
+import test.smok.logic.WCDMADataCollector;
 import test.smok.logic.XMLDataParser;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onRefreshButtonClick(View view){
-        GSMDataCollector g = new GSMDataCollector();
+        WCDMADataCollector g = new WCDMADataCollector();
         TextView textView = (TextView) findViewById(R.id.SomeName);
         XMLDataParser xmlDataParser=new XMLDataParser(g);
         String [] tmp =

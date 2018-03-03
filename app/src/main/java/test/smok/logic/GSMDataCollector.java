@@ -41,4 +41,9 @@ public class GSMDataCollector implements DataCollector {
         }
         return returnString;
     }
+
+    public int get1(Context context){
+        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        return mTelephonyManager.getNetworkType();
+    }
 }
