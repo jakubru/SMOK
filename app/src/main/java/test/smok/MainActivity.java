@@ -4,13 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.WCDMADataCollector;
-import test.smok.logic.XMLDataParser;
+import test.smok.logic.GSMDataCollector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,21 +47,19 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     public void onRefreshButtonClick(View view){
-        WCDMADataCollector g = new WCDMADataCollector();
+        GSMDataCollector g = new GSMDataCollector();
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        XMLDataParser xmlDataParser=new XMLDataParser(g);
-        String [] tmp =
-//                xmlDataParser.getDataCollectorArray();
-                g.collect(this);
-        xmlDataParser.parse(';',':');
-
-        String tmp1 = "";
-        for(int i = 0; i <tmp.length; i++ ){
-            tmp1 += tmp[i];
+        try{
+            g.collect(this);
         }
-        textView.setText(tmp1);
+        catch(Exception e){
+
+        }
+        /* */
+        TelephonyManager tM  =(TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+        int k = tM.getNetworkType();
+        textView.setText(Integer.toString(k));
     }
     public static Context getContext(){
         return MainActivity.context;

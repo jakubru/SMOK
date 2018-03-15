@@ -6,15 +6,17 @@ package test.smok.logic;
 
 public class DataManager {
 
-    NetworkTypeState mNetworkTypeState;
     Parser mParser;
+    DataCollector mDataCollector;
 
-    public DataManager(Parser parser){
+    public DataManager(Parser parser, DataCollector dataCollector){
         this.mParser = parser;
+        this.mDataCollector = dataCollector;
     }
 
-    private void requestCollect(){
-        mNetworkTypeState.handleCollect();
-    }
 
+    public void sendToServer(){
+        //prawdopodobnie powinna zostać stworzona klasa, która obsługuje wysyłanie na serwer i przekazana tej metodzie w parametrze
+
+    }
 }
