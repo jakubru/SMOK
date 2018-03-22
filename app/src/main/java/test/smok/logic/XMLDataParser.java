@@ -1,6 +1,5 @@
 package test.smok.logic;
 
-import test.smok.MainActivity;
 /**
  * Created by Kuba on 16.12.2017.
  */
@@ -8,7 +7,7 @@ import test.smok.MainActivity;
 public class XMLDataParser extends Parser {
     private String[] DataCollectorArray;
     public XMLDataParser(DataCollector dataCollector) {
-        DataCollectorArray = dataCollector.collect(MainActivity.getContext());
+        DataCollectorArray = dataCollector.collect();
     }
 
     public String[] getDataCollectorArray() {

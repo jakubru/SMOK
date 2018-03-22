@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,18 +47,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRefreshButtonClick(View view){
-        GSMDataCollector g = new GSMDataCollector();
+        GSMDataCollector g = new GSMDataCollector(this);
         TextView textView = (TextView) findViewById(R.id.SomeName);
+        String ret = "";
         try{
-            g.collect(this);
+            String [] x = g.collect();
+            for(int i = 0; i < x.length; i++){
+                ret = ret + x[i];
+            }
+            ret = ret + "IMSI:" + g.getImsi() + ";Localization" + g.getLocalization();
         }
         catch(Exception e){
-
+            ret = "klops kurwa";
         }
-        /* */
-        TelephonyManager tM  =(TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        int k = tM.getNetworkType();
-        textView.setText(Integer.toString(k));
+        textView.setText(ret);
     }
     public static Context getContext(){
         return MainActivity.context;

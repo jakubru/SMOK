@@ -5,7 +5,6 @@ import android.telephony.CellIdentityGsm;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoGsm;
 import android.telephony.CellSignalStrengthGsm;
-import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -14,14 +13,16 @@ import java.util.List;
  * Created by Kuba on 16.12.2017.
  */
 @TargetApi(18)
-public class GSMDataCollector implements DataCollector {
-    private TelephonyManager mTelephonyManager;
+public class GSMDataCollector extends DataCollector {
+
+    public GSMDataCollector(Context context){
+        super(context);
+    }
 
     @Override
-    public String [] collect(Context context) {
+    public String [] collect() {
         List<CellInfo> cellInfoList = null;
         String [] returnString;
-        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }

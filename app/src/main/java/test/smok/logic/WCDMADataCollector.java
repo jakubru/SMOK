@@ -6,7 +6,6 @@ import android.telephony.CellIdentityWcdma;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoWcdma;
 import android.telephony.CellSignalStrengthWcdma;
-import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -14,14 +13,18 @@ import java.util.List;
  * Created by Kuba on 03.03.2018.
  */
 @TargetApi(18)
-public class WCDMADataCollector implements DataCollector {
-    private TelephonyManager mTelephonyManager;
+public class WCDMADataCollector extends DataCollector {
+
+
+    public WCDMADataCollector(Context context){
+        super(context);
+
+    }
 
     @Override
-    public String[] collect(Context context) {
+    public String[] collect() {
         List<CellInfo> cellInfoList = null;
         String [] returnString;
-        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }

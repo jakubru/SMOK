@@ -6,7 +6,6 @@ import android.telephony.CellIdentityCdma;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoCdma;
 import android.telephony.CellSignalStrengthCdma;
-import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -15,15 +14,18 @@ import java.util.List;
  */
 
 @TargetApi(18)
-public class CDMADataCollector implements DataCollector {
-    private TelephonyManager mTelephonyManager;
+public class CDMADataCollector extends DataCollector {
 
+    public CDMADataCollector(Context context){
+        super(context);
+
+    }
 
     @Override
-    public String [] collect(Context context) {
+    public String [] collect() {
         List<CellInfo> cellInfoList = null;
         String [] returnString;
-        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }

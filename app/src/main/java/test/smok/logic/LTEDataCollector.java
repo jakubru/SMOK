@@ -6,7 +6,6 @@ import android.telephony.CellIdentityLte;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoLte;
 import android.telephony.CellSignalStrengthLte;
-import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -14,15 +13,17 @@ import java.util.List;
  * Created by Kuba on 03.03.2018.
  */
 @TargetApi(18)
-public class LTEDataCollector implements DataCollector {
-    private TelephonyManager mTelephonyManager;
+public class LTEDataCollector extends DataCollector {
 
+    public LTEDataCollector(Context context){
+        super(context);
+
+    }
 
     @Override
-    public String[] collect(Context context) {
+    public String[] collect() {
         List<CellInfo> cellInfoList = null;
         String [] returnString;
-        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
