@@ -7,7 +7,8 @@ package test.smok.logic;
 public class XMLDataParser extends Parser {
     private String[] DataCollectorArray;
     public XMLDataParser(CellDataCollector cellDataCollector) {
-        //DataCollectorArray = cellDataCollector.collectData();
+        //TODO DataCollectorArray = cellDataCollector.collectData(); trzeba korzystać z tej metody, nie z collect, poza tym w parametrze nie CellDataCollector tylko DataCollector, tam gdzie był
+        // podział na nowe komórki tablicy w zwracanej tablice jest to zastąpione w Stringu przez |
     }
 
     public String[] getDataCollectorArray() {
