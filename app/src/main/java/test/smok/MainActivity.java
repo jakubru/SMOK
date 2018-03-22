@@ -4,13 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.GSMDataCollector;
+import test.smok.logic.CDMACellDataCollector;
+import test.smok.logic.GSMCellDataCollector;
+import test.smok.logic.LTECellDataCollector;
+import test.smok.logic.WCDMACellDataCollector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,18 +50,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRefreshButtonClick(View view){
-        GSMDataCollector g = new GSMDataCollector();
+        GSMCellDataCollector g = new GSMCellDataCollector(this);
+        LTECellDataCollector l = new LTECellDataCollector(this);
+        CDMACellDataCollector c = new CDMACellDataCollector(this);
+        WCDMACellDataCollector w = new WCDMACellDataCollector(this);
+        g.setNextCollector(l);
+        l.setNextCollector(c);
+        c.setNextCollector(w);
         TextView textView = (TextView) findViewById(R.id.SomeName);
+        String ret = "";
         try{
-            g.collect(this);
+            ret = g.collectData();
         }
         catch(Exception e){
-
+            ret = "klops kurwa";
         }
-        /* */
-        TelephonyManager tM  =(TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
-        int k = tM.getNetworkType();
-        textView.setText(Integer.toString(k));
+        textView.setText(ret);
     }
     public static Context getContext(){
         return MainActivity.context;

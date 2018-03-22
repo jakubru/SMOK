@@ -6,7 +6,6 @@ import android.telephony.CellIdentityWcdma;
 import android.telephony.CellInfo;
 import android.telephony.CellInfoWcdma;
 import android.telephony.CellSignalStrengthWcdma;
-import android.telephony.TelephonyManager;
 
 import java.util.List;
 
@@ -14,14 +13,18 @@ import java.util.List;
  * Created by Kuba on 03.03.2018.
  */
 @TargetApi(18)
-public class WCDMADataCollector implements DataCollector {
-    private TelephonyManager mTelephonyManager;
+public class WCDMACellDataCollector extends CellDataCollector {
+
+
+    public WCDMACellDataCollector(Context context){
+        super(context);
+
+    }
 
     @Override
-    public String[] collect(Context context) {
+    protected String collect() {
         List<CellInfo> cellInfoList = null;
-        String [] returnString;
-        this.mTelephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        String returnString;
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
@@ -29,15 +32,15 @@ public class WCDMADataCollector implements DataCollector {
 
         }
 
-        returnString = new String[cellInfoList.size()];
+        returnString = "";
         int i = 0;
         for (CellInfo cellInfo: cellInfoList){
             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
             CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
             CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
-            returnString[i++] = "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
+            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
                     + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
-                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel();
+                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + "|";
         }
 
         return returnString;
