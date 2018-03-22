@@ -9,7 +9,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.GSMDataCollector;
+import test.smok.logic.CDMACellDataCollector;
+import test.smok.logic.GSMCellDataCollector;
+import test.smok.logic.LTECellDataCollector;
+import test.smok.logic.WCDMACellDataCollector;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,15 +50,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRefreshButtonClick(View view){
-        GSMDataCollector g = new GSMDataCollector(this);
+        GSMCellDataCollector g = new GSMCellDataCollector(this);
+        LTECellDataCollector l = new LTECellDataCollector(this);
+        CDMACellDataCollector c = new CDMACellDataCollector(this);
+        WCDMACellDataCollector w = new WCDMACellDataCollector(this);
+        g.setNextCollector(l);
+        l.setNextCollector(c);
+        c.setNextCollector(w);
         TextView textView = (TextView) findViewById(R.id.SomeName);
         String ret = "";
         try{
-            String [] x = g.collect();
-            for(int i = 0; i < x.length; i++){
-                ret = ret + x[i];
-            }
-            ret = ret + "IMSI:" + g.getImsi() + ";Localization" + g.getLocalization();
+            ret = g.collectData();
         }
         catch(Exception e){
             ret = "klops kurwa";

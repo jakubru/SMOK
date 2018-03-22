@@ -6,8 +6,8 @@ package test.smok.logic;
 
 public class XMLDataParser extends Parser {
     private String[] DataCollectorArray;
-    public XMLDataParser(DataCollector dataCollector) {
-        DataCollectorArray = dataCollector.collect();
+    public XMLDataParser(CellDataCollector cellDataCollector) {
+        //DataCollectorArray = cellDataCollector.collectData();
     }
 
     public String[] getDataCollectorArray() {

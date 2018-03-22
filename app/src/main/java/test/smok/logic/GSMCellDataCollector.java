@@ -13,32 +13,32 @@ import java.util.List;
  * Created by Kuba on 16.12.2017.
  */
 @TargetApi(18)
-public class GSMDataCollector extends DataCollector {
+public class GSMCellDataCollector extends CellDataCollector {
 
-    public GSMDataCollector(Context context){
+    public GSMCellDataCollector(Context context){
         super(context);
     }
 
     @Override
-    public String [] collect() {
+    protected String collect() {
         List<CellInfo> cellInfoList = null;
-        String [] returnString;
+        String returnString;
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
         catch(SecurityException e){
 
         }
-        returnString = new String[cellInfoList.size()];
+        returnString = "";
         int i = 0;
         for (CellInfo cellInfo:cellInfoList)
         {
             CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
             CellIdentityGsm cellIdentityGsm = cellInfoGsm.getCellIdentity();
             CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
-            returnString[i++] = "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
+            returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
                     + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel();/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
         }
         return returnString;
     }

@@ -13,18 +13,18 @@ import java.util.List;
  * Created by Kuba on 03.03.2018.
  */
 @TargetApi(18)
-public class WCDMADataCollector extends DataCollector {
+public class WCDMACellDataCollector extends CellDataCollector {
 
 
-    public WCDMADataCollector(Context context){
+    public WCDMACellDataCollector(Context context){
         super(context);
 
     }
 
     @Override
-    public String[] collect() {
+    protected String collect() {
         List<CellInfo> cellInfoList = null;
-        String [] returnString;
+        String returnString;
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
@@ -32,15 +32,15 @@ public class WCDMADataCollector extends DataCollector {
 
         }
 
-        returnString = new String[cellInfoList.size()];
+        returnString = "";
         int i = 0;
         for (CellInfo cellInfo: cellInfoList){
             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
             CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
             CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
-            returnString[i++] = "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
+            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
                     + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
-                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel();
+                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + "|";
         }
 
         return returnString;
