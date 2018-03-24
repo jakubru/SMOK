@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import test.smok.logic.CDMACellDataCollector;
+import test.smok.logic.GPSDataCollector;
 import test.smok.logic.GSMCellDataCollector;
 import test.smok.logic.LTECellDataCollector;
 import test.smok.logic.WCDMACellDataCollector;
@@ -17,6 +18,7 @@ import test.smok.logic.WCDMACellDataCollector;
 public class MainActivity extends AppCompatActivity {
 
     public static Context context;
+    public static GPSDataCollector gps;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
+        gps = new GPSDataCollector(this);
     }
 
     @Override
@@ -64,6 +67,14 @@ public class MainActivity extends AppCompatActivity {
         }
         catch(Exception e){
             ret = "klops kurwa";
+        }
+
+        ret += gps.collectData();
+        try {
+            ret += gps.alternative();
+        }
+        catch(Exception e){
+            ret += "nie wyszlo";
         }
         textView.setText(ret);
     }
