@@ -6,7 +6,7 @@ package test.smok.logic;
 
 public class XMLDataParser extends Parser {//może przemianuj tą klasę tak aby było zaznaczone, ze ten Parser obsługuje zbieranie danych z sieci komórkowej, być może wypadałoby też delimitery w parametrze w metodzie parse przechowywać w stringu, aby była ich nieograniczona ilość
     private String[] DataCollectorArray;
-    public XMLDataParser(CellDataCollector cellDataCollector) {
+    public XMLDataParser() {
         //TODO DataCollectorArray = cellDataCollector.collectData(); trzeba korzystać z tej metody, nie z collect, poza tym w parametrze nie CellDataCollector tylko DataCollector, tam gdzie był
         // podział na nowe komórki tablicy w zwracanej tablice jest to zastąpione w zeracanym stringu Stringu przez |
     }

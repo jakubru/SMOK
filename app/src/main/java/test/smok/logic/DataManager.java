@@ -14,9 +14,9 @@ public class DataManager {
         this.mDataCollector = DataCollector;
     }
 
-
-    public void sendToServer(){
-        //prawdopodobnie powinna zostać stworzona klasa, która obsługuje wysyłanie na serwer i przekazana tej metodzie w parametrze
-
+    public String collectfromCollectors(){
+        return this.mDataCollector.collectData();
     }
+
+
 }
