@@ -1,7 +1,6 @@
 package test.smok.logic;
 
 import android.content.Context;
-import android.location.Location;
 import android.location.LocationManager;
 
 /**
@@ -29,14 +28,4 @@ public class GPSDataCollector implements DataCollector {
         return Double.toString(this.mGPSLocationListener.getLongitude()) + ";" + Double.toString(this.mGPSLocationListener.getLatitude()) + ";" + Float.toString(this.mGPSLocationListener.getAccuracy()) + "|";
     }
 
-    public String alternative(){
-        try{
-            Location location = this.mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            return Double.toString(location.getLongitude()) + ";" + Double.toString(location.getLatitude()) + ";" + Float.toString(location.getAccuracy()) + "|";
-
-        }
-        catch(SecurityException e){
-            return "nie wyszło";
-        }
-    }
 }

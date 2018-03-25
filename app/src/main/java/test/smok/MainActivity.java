@@ -9,16 +9,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.LinkedList;
+
 import test.smok.logic.CDMACellDataCollector;
+import test.smok.logic.CollectAndSend;
+import test.smok.logic.DataManager;
 import test.smok.logic.GPSDataCollector;
 import test.smok.logic.GSMCellDataCollector;
 import test.smok.logic.LTECellDataCollector;
 import test.smok.logic.WCDMACellDataCollector;
+import test.smok.logic.XMLDataParser;
 
 public class MainActivity extends AppCompatActivity {
 
     public static Context context;
     public static GPSDataCollector gps;
+    public static LinkedList <String> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
         gps = new GPSDataCollector(this);
+        GSMCellDataCollector g = new GSMCellDataCollector(this);
+        LTECellDataCollector l = new LTECellDataCollector(this);
+        CDMACellDataCollector c = new CDMACellDataCollector(this);
+        WCDMACellDataCollector w = new WCDMACellDataCollector(this);
+        g.setNextCollector(l);
+        l.setNextCollector(c);
+        c.setNextCollector(w);
+        list = new LinkedList<>();
+        CollectAndSend collectAndSend = new CollectAndSend(list);
+        collectAndSend.addDataManager(new DataManager(new XMLDataParser(),g));
+        collectAndSend.addDataManager(new DataManager(new XMLDataParser(),gps));
+        Thread thread = new Thread(collectAndSend);
+        try{
+            thread.start();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -53,28 +77,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRefreshButtonClick(View view){
-        GSMCellDataCollector g = new GSMCellDataCollector(this);
-        LTECellDataCollector l = new LTECellDataCollector(this);
-        CDMACellDataCollector c = new CDMACellDataCollector(this);
-        WCDMACellDataCollector w = new WCDMACellDataCollector(this);
-        g.setNextCollector(l);
-        l.setNextCollector(c);
-        c.setNextCollector(w);
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String ret = "";
+        String ret;
         try{
-            ret = g.collectData();
+            ret = list.getFirst();
+            list.removeFirst();
+            ret += list.getFirst();
+            list.removeFirst();
         }
         catch(Exception e){
-            ret = "klops kurwa";
-        }
-
-        ret += gps.collectData();
-        try {
-            ret += gps.alternative();
-        }
-        catch(Exception e){
-            ret += "nie wyszlo";
+            ret = "za wczesnie";
         }
         textView.setText(ret);
     }
