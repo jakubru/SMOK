@@ -8,5 +8,5 @@ public abstract class Parser {
 
     public Parser(){};
 
-    abstract public void parse(char delimiter1, char delimiter2);
+    abstract public void parse(String Data,String delimiter,String path);
 }

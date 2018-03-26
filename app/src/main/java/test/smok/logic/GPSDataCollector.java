@@ -25,7 +25,7 @@ public class GPSDataCollector implements DataCollector {
 
     @Override
     public String collectData() {
-        return Double.toString(this.mGPSLocationListener.getLongitude()) + ";" + Double.toString(this.mGPSLocationListener.getLatitude()) + ";" + Float.toString(this.mGPSLocationListener.getAccuracy()) + "|";
+        return "NetworkType:GPS"+";"+"Longitude:"+Double.toString(this.mGPSLocationListener.getLongitude()) + ";" + "Latitude:"+Double.toString(this.mGPSLocationListener.getLatitude()) + ";" + "Accuracy:"+Float.toString(this.mGPSLocationListener.getAccuracy()) + "|";
     }
 
 }
