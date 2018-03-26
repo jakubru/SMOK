@@ -15,8 +15,13 @@ public class DataManager {
     }
 
     public String collectfromCollectors(){
-        return this.mDataCollector.collectData();
+        String data=this.mDataCollector.collectData();
+        String Delimiter=":;|";
+        mParser.parse(data,Delimiter,"/data/data/test.smok/NetworkData.xml");
+        return data;
     }
 
+    public void saveDataFromAllManagers(String data){
 
+    }
 }

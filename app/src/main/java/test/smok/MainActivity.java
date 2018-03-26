@@ -84,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
             list.removeFirst();
             ret += list.getFirst();
             list.removeFirst();
+
         }
         catch(Exception e){
             ret = "za wczesnie";

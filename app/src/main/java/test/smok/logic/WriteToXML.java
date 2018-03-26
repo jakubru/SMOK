@@ -27,16 +27,23 @@ import test.smok.MainActivity;
  */
 
 public class WriteToXML {
-    public void write(String[] element, String delimiter){
-        String path = "/sdcard/NetworkData.xml";
+    private String path;
+
+    public WriteToXML(String path) {
+        this.path = path;
+    }
+
+    public void write(String[] element, String delimiter) {
         DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = null;
         try {
             docBuilder = docFactory.newDocumentBuilder();
+            System.out.println("docBuild zrobione");
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
         File f = new File(path);
+        System.out.println(f.getAbsolutePath());
         Document doc = null;
         Node rootElement;
         if (f.exists()) {
@@ -54,32 +61,39 @@ public class WriteToXML {
             doc = docBuilder.newDocument();
             rootElement = doc.createElement("data");
             doc.appendChild(rootElement);
-            Toast.makeText(MainActivity.getContext(),
-                    "Create new "+path,
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(MainActivity.getContext(),
+//                    "Create new "+path,
+//                    Toast.LENGTH_SHORT).show();
         }
 //=================================
-        String[] nameValue=element[0].split(delimiter);
-            Element networkType = doc.createElement(nameValue[1]);
-            rootElement.appendChild(networkType);
-            // parametr elements
-            Element parametr = null;
+        String[] nameValue = element[0].split(delimiter);
+        Element networkType = doc.createElement("params");
+        Node device;
+
+        device = doc.createElement("device");
+        rootElement.appendChild(device);
+        Element type = doc.createElement("type");
+        type.appendChild(doc.createTextNode(nameValue[1]));
+        device.appendChild(type);
+        device.appendChild(networkType);
+        // parametr elements
+        Element parametr = null;
 
         for (String s : element) {
             nameValue = s.split(delimiter);
-                parametr = doc.createElement("parametr");
-                networkType.appendChild(parametr);
+            parametr = doc.createElement("parametr");
+            networkType.appendChild(parametr);
 
-                // name elements
-                Element name = doc.createElement("name");
-                name.appendChild(doc.createTextNode(nameValue[0]));
-                parametr.appendChild(name);
+            // name elements
+            Element name = doc.createElement("name");
+            name.appendChild(doc.createTextNode(nameValue[0]));
+            parametr.appendChild(name);
 
-                // value elements
-                Element value = doc.createElement("value");
-                value.appendChild(doc.createTextNode(nameValue[1]));
-                parametr.appendChild(value);
-            }
+            // value elements
+            Element value = doc.createElement("value");
+            value.appendChild(doc.createTextNode(nameValue[1]));
+            parametr.appendChild(value);
+        }
         // write the content into xml file
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = null;
@@ -97,9 +111,9 @@ public class WriteToXML {
         }
 
         System.out.println("File saved!");
-        Toast.makeText(MainActivity.getContext(),
-                "Done writing SD "+path,
-                Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MainActivity.getContext(),
+//                "Done writing "+path,
+//                Toast.LENGTH_SHORT).show();
 
 
     }
