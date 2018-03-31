@@ -27,4 +27,12 @@ public abstract class CellDataCollector implements DataCollector {
         this.nextCellDataCollector = cellDataCollector;
     }
 
+    protected String getIMSI(){
+        try{
+            return this.mTelephonyManager.getSubscriberId();
+        }
+        catch(SecurityException e){
+            return "";
+        }
+    }
 }
