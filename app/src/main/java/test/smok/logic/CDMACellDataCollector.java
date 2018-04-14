@@ -22,6 +22,11 @@ public class CDMACellDataCollector extends CellDataCollector {
     }
 
     @Override
+    public String getRegisteredCellInfo() {
+        return null;
+    }
+
+    @Override
     protected String  collect() {
         List<CellInfo> cellInfoList = null;
         String returnString;

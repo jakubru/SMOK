@@ -35,4 +35,6 @@ public abstract class CellDataCollector implements DataCollector {
             return "";
         }
     }
+
+    abstract public String getRegisteredCellInfo();
 }

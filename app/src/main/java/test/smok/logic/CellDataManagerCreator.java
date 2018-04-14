@@ -23,6 +23,7 @@ public class CellDataManagerCreator extends DataManagerCreator {
         DataManager dataManager = new DataManager(new XMLDataParser(), context);
         dataManager.addCollector(gps);
         dataManager.addCollector(g);
+        dataManager.addCollector(new TimestampCollector());
         return dataManager;
     }
 
