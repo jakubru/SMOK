@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * Created by Kuba on 03.03.2018.
  */
 
-public class DataManager implements Runnable {
+public class DataManager{
 
     Parser mParser;
     LinkedList<DataCollector> mDataCollectors;
@@ -22,7 +22,7 @@ public class DataManager implements Runnable {
         i = 0;
     }
 
-    private void collectfromCollectors(){
+    public void collectfromCollectors(){
         String data = "";
         for (DataCollector dataCollector:mDataCollectors) {
             data +=  dataCollector.collectData();
@@ -35,20 +35,11 @@ public class DataManager implements Runnable {
         this.mDataCollectors.add(dataCollector);
     }
 
-    @Override
-    public void run() {
-        while (true){
-            try{
-                this.collectfromCollectors();
-                Thread.sleep(5000);
-            }
-            catch(Exception e){
-                e.printStackTrace();
-            }
-        }
-    }
 
     public void send(){
         //TODO wysyłanie pliku na serwer
+        new HttpPost().sendFile("https://smok-prot-5.herokuapp.com/Server",
+                mContext.getFilesDir().getPath() + "/NetworkData" + Integer.toString(this.i-1) +".xml");
     }
+
 }

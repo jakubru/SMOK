@@ -1,6 +1,7 @@
 package test.smok;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,12 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import test.smok.logic.CellDataManagerCreator;
-import test.smok.logic.DataManager;
+import test.smok.logic.MyIntentSevice;
 
 public class MainActivity extends AppCompatActivity {
 
     public static Context context;
-    public static DataManager dataManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,9 +24,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
-        dataManager = new CellDataManagerCreator().createDataManager(this);
-        Thread thread = new Thread(dataManager);
-        thread.start();
+        Intent intent = new Intent(this, MyIntentSevice.class);
+        intent.putExtra("Creator",new CellDataManagerCreator());
+        startService(intent);
     }
 
     @Override
