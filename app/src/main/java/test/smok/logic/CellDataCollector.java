@@ -35,4 +35,15 @@ public abstract class CellDataCollector implements DataCollector {
             return "";
         }
     }
+
+    abstract protected String getRegistered();
+
+    public String getRegisteredCellInfo(){
+        try{
+            return getRegistered();
+        }
+        catch(Exception e){
+            return nextCellDataCollector.getRegistered();
+        }
+    }
 }

@@ -21,6 +21,34 @@ public class LTECellDataCollector extends CellDataCollector {
     }
 
     @Override
+    protected String getRegistered() {
+        List<CellInfo> cellInfoList = null;
+        String returnString;
+        try{
+            cellInfoList = mTelephonyManager.getAllCellInfo();
+        }
+        catch(SecurityException e){
+
+        }
+        returnString = "";
+        int i = 0;
+        for (CellInfo cellInfo:cellInfoList ){
+            if(cellInfo.isRegistered()){
+            CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
+                CellIdentityLte cellIdentityLte = cellInfoLte.getCellIdentity();
+                CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
+                returnString += "NetworkType:LTE;CI:" + cellIdentityLte.getCi() /*+ ";EARFCN:" + cellIdentityLte.getEarfcn()*/ + ";MCC:" + cellIdentityLte.getMcc() + ";MNC:" + cellIdentityLte.getMnc()
+                    + ";PCI:" +  cellIdentityLte.getPci() + ";TAC:" + cellIdentityLte.getTac() + ";AsuLevel:" + cellSignalStrengthLte.getAsuLevel() /* + ";CQI:" + cellSignalStrengthLte.getCqi() */
+                    + ";DBM:" + cellSignalStrengthLte.getDbm() + ";Level:" + cellSignalStrengthLte.getLevel() /*+ ";RSRP:" + cellSignalStrengthLte.getRsrp() + ";RSRQ:" + cellSignalStrengthLte.getRsrq()
+                    + ";RSSNR:" + cellSignalStrengthLte.getRssnr()*/ + ";TimingAdvance:" + cellSignalStrengthLte.getTimingAdvance() + ";IMSI:"+ getIMSI() + "|";
+            }
+
+        }
+
+        return returnString;
+    }
+
+    @Override
     protected String collect() {
         List<CellInfo> cellInfoList = null;
         String returnString;

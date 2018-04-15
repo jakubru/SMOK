@@ -8,20 +8,19 @@ import android.support.annotation.Nullable;
  * Created by Kuba on 08.04.2018.
  */
 
-public class MyIntentSevice extends IntentService {
+public class DataToServerService extends IntentService {
 
     private DataManager mDataManager;
-    private DataManagerCreator mDataManagerCreator;
 
-    public MyIntentSevice(){
+    public DataToServerService(){
         super("IntentService");
     }
 
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
-        mDataManagerCreator = intent.getParcelableExtra("Creator");
-        mDataManager = mDataManagerCreator.createDataManager(getApplicationContext());
+        DataManagerCreator dataManagerCreator = intent.getParcelableExtra("Creator");
+        mDataManager = dataManagerCreator.createDataManager(getApplicationContext());
         while(true){
             try{
                 mDataManager.collectfromCollectors();

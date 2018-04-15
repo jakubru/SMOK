@@ -23,6 +23,7 @@ public class CellDataManagerCreator extends DataManagerCreator {
         DataManager dataManager = new DataManager(new XMLDataParser(), context);
         dataManager.addCollector(gps);
         dataManager.addCollector(g);
+        dataManager.addCollector(new TimestampCollector());
         return dataManager;
     }
 
@@ -41,9 +42,6 @@ public class CellDataManagerCreator extends DataManagerCreator {
 
     }
 
-    public CellDataManagerCreator(){
-
-    }
 
     @Override
     public int describeContents() {

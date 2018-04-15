@@ -22,6 +22,33 @@ public class WCDMACellDataCollector extends CellDataCollector {
     }
 
     @Override
+    protected String getRegistered() {
+        List<CellInfo> cellInfoList = null;
+        String returnString;
+        try{
+            cellInfoList = mTelephonyManager.getAllCellInfo();
+        }
+        catch(SecurityException e){
+
+        }
+
+        returnString = "";
+        for (CellInfo cellInfo: cellInfoList){
+            if(cellInfo.isRegistered()){
+                CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
+                CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
+                CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
+                returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
+                    + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
+                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + ";IMSI:" + getIMSI() + "|";
+            }
+        }
+
+        return returnString;
+    }
+
+
+    @Override
     protected String collect() {
         List<CellInfo> cellInfoList = null;
         String returnString;
@@ -33,7 +60,6 @@ public class WCDMACellDataCollector extends CellDataCollector {
         }
 
         returnString = "";
-        int i = 0;
         for (CellInfo cellInfo: cellInfoList){
             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
             CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();

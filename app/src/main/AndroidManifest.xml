@@ -18,7 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".logic.MyIntentSevice"/>
+        <service android:name=".logic.DataToServerService"/>
+        <service android:name=".logic.ReactionService" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
