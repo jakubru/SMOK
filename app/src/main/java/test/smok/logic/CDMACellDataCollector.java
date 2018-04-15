@@ -22,8 +22,32 @@ public class CDMACellDataCollector extends CellDataCollector {
     }
 
     @Override
-    public String getRegisteredCellInfo() {
-        return null;
+    protected String getRegistered() {
+        List<CellInfo> cellInfoList = null;
+        String returnString;
+
+        try{
+            cellInfoList = mTelephonyManager.getAllCellInfo();
+        }
+        catch(SecurityException e){
+
+        }
+
+        returnString = "";
+
+        for (CellInfo cellInfo: cellInfoList){
+            if(cellInfo.isRegistered()) {
+                CellInfoCdma cellInfoCdma = (CellInfoCdma) cellInfo;
+                CellIdentityCdma cellIdentityCdma = cellInfoCdma.getCellIdentity();
+                CellSignalStrengthCdma cellSignalStrengthCdma = cellInfoCdma.getCellSignalStrength();
+                returnString += "NetworkType:CDMA;BasestationID:" + cellIdentityCdma.getBasestationId() + ";Latitude:" + cellIdentityCdma.getLatitude() + ";Longitude:" + cellIdentityCdma.getLongitude()
+                        + ";NetworkID:" + cellIdentityCdma.getNetworkId() + ";SystemID:" + cellIdentityCdma.getSystemId() + ";AsuLevel:" + cellSignalStrengthCdma.getAsuLevel()
+                        + ";CDMADBM:" + cellSignalStrengthCdma.getCdmaDbm() + ";CDMAECIO:" + cellSignalStrengthCdma.getCdmaEcio() + ";CDMALevel:" + cellSignalStrengthCdma.getCdmaLevel()
+                        + ";DBM:" + cellSignalStrengthCdma.getDbm() + ";EVDODBM:" + cellSignalStrengthCdma.getEvdoDbm() + ";EVDOECIO:" + cellSignalStrengthCdma.getEvdoEcio()
+                        + ";EVDOLevel:" + cellSignalStrengthCdma.getEvdoLevel() + ";EVDOSNR:" + cellSignalStrengthCdma.getEvdoSnr() + ";Level:" + cellSignalStrengthCdma.getLevel() + ";IMSI:" + getIMSI() + "|";
+            }
+        }
+        return returnString;
     }
 
     @Override

@@ -20,9 +20,30 @@ public class GSMCellDataCollector extends CellDataCollector {
     }
 
     @Override
-    public String getRegisteredCellInfo() {
-        return null;
+    protected String getRegistered() {
+        List<CellInfo> cellInfoList = null;
+        String returnString;
+        try{
+            cellInfoList = mTelephonyManager.getAllCellInfo();
+        }
+        catch(SecurityException e){
+
+        }
+        returnString = "";
+        for (CellInfo cellInfo:cellInfoList)
+        {
+            if(cellInfo.isRegistered()){
+                CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
+                CellIdentityGsm cellIdentityGsm = cellInfoGsm.getCellIdentity();
+                CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
+                returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
+                    + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
+                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + ";IMSI:"+ getIMSI() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+            }
+        }
+        return returnString;
     }
+
 
     @Override
     protected String collect() {
@@ -35,7 +56,6 @@ public class GSMCellDataCollector extends CellDataCollector {
 
         }
         returnString = "";
-        int i = 0;
         for (CellInfo cellInfo:cellInfoList)
         {
             CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
