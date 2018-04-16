@@ -10,8 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.CellDataManagerCreator;
-import test.smok.logic.DataToServerService;
+import test.smok.logic.ReactionService;
+import test.smok.logic.ReactionSubsystemCreator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
-        Intent intent = new Intent(this, DataToServerService.class);
-        intent.putExtra("Creator",new CellDataManagerCreator());
+        Intent intent = new Intent(this, ReactionService.class);
+        intent.putExtra("Creator",new ReactionSubsystemCreator());
         startService(intent);
     }
 

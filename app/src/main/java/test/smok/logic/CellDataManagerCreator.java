@@ -42,6 +42,8 @@ public class CellDataManagerCreator extends DataManagerCreator {
 
     }
 
+    public CellDataManagerCreator(){}
+
 
     @Override
     public int describeContents() {

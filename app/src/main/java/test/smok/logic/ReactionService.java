@@ -17,7 +17,15 @@ public class ReactionService extends Service {
     public int onStartCommand(Intent intent, int flags, int StartId){
         SubsystemCreator subsystemCreator = intent.getParcelableExtra("Creator");
         mSubsystem = subsystemCreator.createSubsystem(getApplicationContext());
-        return Service.START_STICKY;
+        while (true){
+            this.mSubsystem.react();
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     @Nullable
