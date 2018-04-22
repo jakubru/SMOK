@@ -10,22 +10,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.ReactionService;
-import test.smok.logic.ReactionSubsystemCreator;
+import test.smok.database.AppDatabase;
+import test.smok.logic.CellDataManagerCreator;
+import test.smok.logic.DataToServerService;
+import test.smok.utils.DatabaseInitializer;
+import test.smok.utils.DatabaseMake;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity{
     public static Context context;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
-        Intent intent = new Intent(this, ReactionService.class);
-        intent.putExtra("Creator",new ReactionSubsystemCreator());
+        Intent intent = new Intent(this, DataToServerService.class);
+        intent.putExtra("Creator",new CellDataManagerCreator());
         startService(intent);
     }
 
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         String ret;
         try{
             ret = context.getFilesDir().getPath();
+            DatabaseMake databaseMake=new DatabaseMake(new DatabaseInitializer());
+            databaseMake.populateAsync(AppDatabase.getAppDatabase(this));
         }
         catch(Exception e){
             ret = "za wczesnie";

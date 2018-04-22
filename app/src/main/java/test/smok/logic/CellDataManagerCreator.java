@@ -10,6 +10,9 @@ import android.os.Parcelable;
 
 public class CellDataManagerCreator extends DataManagerCreator {
 
+    public CellDataManagerCreator() {
+    }
+
     @Override
     public DataManager createDataManager(Context context) {
         DataCollector gps = new GPSDataCollector(context);
