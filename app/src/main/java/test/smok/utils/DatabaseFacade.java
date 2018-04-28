@@ -1,9 +1,5 @@
 package test.smok.utils;
 
-import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
 import java.util.List;
 
 import test.smok.database.AppDatabase;

@@ -38,7 +38,7 @@ public class GSMCellDataCollector extends CellDataCollector {
                 CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
                 returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
                     + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + ";IMSI:"+ getIMSI() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
             }
         }
         return returnString;
@@ -63,7 +63,7 @@ public class GSMCellDataCollector extends CellDataCollector {
             CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
             returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
                     + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + ";IMSI:"+ getIMSI() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
         }
         return returnString;
     }

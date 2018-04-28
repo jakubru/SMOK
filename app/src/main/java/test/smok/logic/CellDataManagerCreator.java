@@ -45,7 +45,7 @@ public class CellDataManagerCreator extends DataManagerCreator {
 
     }
 
-    public CellDataManagerCreator(){}
+
 
 
     @Override

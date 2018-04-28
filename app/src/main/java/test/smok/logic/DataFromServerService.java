@@ -19,7 +19,6 @@ public class DataFromServerService extends IntentService {
     }
 
 
-
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         SubsystemCreator subsystemCreator = intent.getParcelableExtra("Creator");

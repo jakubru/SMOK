@@ -4,9 +4,6 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import test.smok.database.AppDatabase;
-import test.smok.enity.CDMA;
-import test.smok.enity.GMS;
-import test.smok.enity.WCDMA;
 
 /**
  * Created by matthew on 21.04.18.
@@ -35,7 +32,8 @@ public class DatabaseMake {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            CDMA cdma=new CDMA();
+            return null;
+            /*CDMA cdma=new CDMA();
             cdma.setLATITUDE(23.6f);
             cdma.setLONGITUDE(12.4f);
             cdma.setNETWORK_ID(23);
@@ -43,7 +41,7 @@ public class DatabaseMake {
 //            databaseInitializer.addCdma(mDb,cdma);
             cdma.setNETWORK_ID(24);
             databaseFacade.updateCDMA(mDb,cdma);
-            return null;
+            return null;*/
         }
 
     }

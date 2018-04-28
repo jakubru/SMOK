@@ -20,12 +20,11 @@ public class ReactionService extends Service {
         while (true){
             this.mSubsystem.react();
             try {
-                Thread.sleep(5000);
+                Thread.sleep(Configuration.getInstance(getApplicationContext()).getDatabaseCheckTime());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
     }
 
     @Nullable

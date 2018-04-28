@@ -13,7 +13,9 @@ import android.widget.TextView;
 import test.smok.database.AppDatabase;
 import test.smok.logic.CellDataManagerCreator;
 import test.smok.logic.DataToServerService;
-import test.smok.utils.DatabaseInitializer;
+import test.smok.logic.ReactionService;
+import test.smok.logic.ReactionSubsystemCreator;
+import test.smok.utils.DatabaseFacade;
 import test.smok.utils.DatabaseMake;
 
 public class MainActivity extends AppCompatActivity{
@@ -29,6 +31,9 @@ public class MainActivity extends AppCompatActivity{
         Intent intent = new Intent(this, DataToServerService.class);
         intent.putExtra("Creator",new CellDataManagerCreator());
         startService(intent);
+        Intent intent1 = new Intent(this, ReactionService.class);
+        intent1.putExtra("Creator", new ReactionSubsystemCreator());
+        startService(intent1);
     }
 
     @Override
@@ -58,7 +63,7 @@ public class MainActivity extends AppCompatActivity{
         String ret;
         try{
             ret = context.getFilesDir().getPath();
-            DatabaseMake databaseMake=new DatabaseMake(new DatabaseInitializer());
+            DatabaseMake databaseMake=new DatabaseMake(new DatabaseFacade());
             databaseMake.populateAsync(AppDatabase.getAppDatabase(this));
         }
         catch(Exception e){

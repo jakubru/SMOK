@@ -25,7 +25,7 @@ public class DataToServerService extends IntentService {
             try{
                 mDataManager.collectfromCollectors();
                 mDataManager.send();
-                Thread.sleep(5000);
+                Thread.sleep(Configuration.getInstance(getApplicationContext()).getDataSendTime());
             }
             catch(Exception e){
                 e.printStackTrace();
