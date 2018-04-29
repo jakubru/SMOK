@@ -18,10 +18,10 @@ public class ReactionService extends Service {
         SubsystemCreator subsystemCreator = intent.getParcelableExtra("Creator");
         mSubsystem = subsystemCreator.createSubsystem(getApplicationContext());
         while (true){
-            this.mSubsystem.react();
             try {
+                this.mSubsystem.react();
                 Thread.sleep(Configuration.getInstance(getApplicationContext()).getDatabaseCheckTime());
-            } catch (InterruptedException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

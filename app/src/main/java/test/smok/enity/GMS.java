@@ -11,7 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 public class GMS {
     @PrimaryKey()
     private int CID;
-    @ColumnInfo(name = "longitude")
+    @ColumnInfo(name = "longitude")/*TODO longitude i latitude można wyjebać ze wszystkich oprócz CDMA oraz zmienić wszędzie GMS na GSM, enity na entity*/
     private float LONGITUDE;
     @ColumnInfo(name = "latitude")
     private float LATITUDE;

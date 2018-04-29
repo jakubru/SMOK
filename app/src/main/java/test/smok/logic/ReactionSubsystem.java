@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.support.v7.app.NotificationCompat;
 
 import test.smok.R;
+import test.smok.database.AppDatabase;
 import test.smok.utils.DatabaseFacade;
 import test.smok.utils.DatabaseMake;
 
@@ -30,8 +31,26 @@ public class ReactionSubsystem extends Subsystem {
     @Override
     public void react() {
         CellDataCollector cellDataCollector = (CellDataCollector) mDataCollector;
-        String registered = cellDataCollector.getRegistered();
-
+        String [] registered = cellDataCollector.getRegisteredCellInfo();
+        boolean flag = true;
+        if (true/*TODO tu będzie warunek sprawdzający, czy komórka znajduje się w określonej lokalizacji*/) {
+            if (registered[0] == "GSM") {
+                flag = mDatabaseMake.databaseFacade.checkIfExistsGSM(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[5]);
+            }
+            else if (registered[0] == "CDMA") {
+                flag = mDatabaseMake.databaseFacade.checkIfExistsCDMA(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[4]);
+            }
+            else if (registered[0] == "WCDMA") {
+                flag = mDatabaseMake.databaseFacade.checkIfExistsWCDMA(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[4]);
+            }
+            else if (registered[0] == "LTE") {
+                flag = mDatabaseMake.databaseFacade.checkIfExistsLTE(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[3], registered[4], registered[5]);
+            }
+        }
+        if(!flag){
+            sendNotification();
+            /*TODO przydałaby się też informacja na serwer*/
+        }
     }
 
     private void sendNotification(){

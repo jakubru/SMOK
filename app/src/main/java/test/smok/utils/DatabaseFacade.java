@@ -55,7 +55,10 @@ public class DatabaseFacade {
         return db.lteDao().getAll();
     }
 
-    public boolean checkIfExsistsGSM(final AppDatabase db, String cid, String lac, String mcc, String mnc){return db.gmsDao().checkIfExists(cid,lac,mcc,mnc);}
+    public boolean checkIfExistsGSM(final AppDatabase db, String cid, String lac, String mcc, String mnc){return db.gmsDao().checkIfExists(cid,lac,mcc,mnc);}
+    public boolean checkIfExistsCDMA(final AppDatabase db, String bsid, String latitude, String longitude, String networkId){return db.cdmaDao().checkIfExists(bsid,latitude,longitude,networkId);}
+    public boolean checkIfExistsLTE(final AppDatabase db, String ci, String tac, String pci, String mnc){return db.lteDao().checkIfExists(ci, mnc,pci,tac);}
+    public boolean checkIfExistsWCDMA(final AppDatabase db, String cid, String lac, String mcc, String mnc){return db.wcdmaDao().checkIfExists(cid,lac,mcc,mnc);}
 
     public void updateGMS(final AppDatabase db, GMS gms){
         db.gmsDao().update(gms);

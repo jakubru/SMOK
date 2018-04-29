@@ -22,9 +22,9 @@ public class WCDMACellDataCollector extends CellDataCollector {
     }
 
     @Override
-    protected String getRegistered() {
+    protected String [] getRegistered() {
         List<CellInfo> cellInfoList = null;
-        String returnString;
+        String [] stringArray = new String[6];
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
@@ -32,19 +32,20 @@ public class WCDMACellDataCollector extends CellDataCollector {
 
         }
 
-        returnString = "";
+        stringArray[0] = "WCDMA";
         for (CellInfo cellInfo: cellInfoList){
             if(cellInfo.isRegistered()){
                 CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
                 CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
-                CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
-                returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
-                    + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
-                    ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + "|";
+                stringArray[1] = Integer.toString(cellIdentityWcdma.getCid());
+                stringArray[2] = Integer.toString(cellIdentityWcdma.getLac());
+                stringArray[3] = Integer.toString(cellIdentityWcdma.getMcc());
+                stringArray[4] = Integer.toString(cellIdentityWcdma.getMnc());
+                stringArray[5] = Integer.toString(cellIdentityWcdma.getPsc());
             }
         }
 
-        return returnString;
+        return stringArray;
     }
 
 

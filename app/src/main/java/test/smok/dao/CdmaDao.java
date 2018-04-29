@@ -25,6 +25,9 @@ public interface CdmaDao {
 
 //    @Query("SELECT COUNT(*) from user")
 //    int countUsers();
+    @Query("SELECT (EXISTS (SELECT * FROM cdma WHERE BASESTATION_ID = :BasestationID AND NETWORKID = :NetworkID AND LONGITUDE = :Longitude AND LATITUDE = :Latitude))")
+    boolean checkIfExists(String BasestationID, String Latitude, String Longitude,String NetworkID);
+
 
     @Insert
     void insertAll(CDMA... cdmas) ;

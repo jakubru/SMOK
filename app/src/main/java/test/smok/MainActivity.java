@@ -10,11 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.database.AppDatabase;
-import test.smok.logic.CellDataManagerCreator;
-import test.smok.logic.DataToServerService;
-import test.smok.utils.DatabaseFacade;
-import test.smok.utils.DatabaseMake;
+import test.smok.logic.ReactionService;
+import test.smok.logic.ReactionSubsystemCreator;
 
 public class MainActivity extends AppCompatActivity{
     public static Context context;
@@ -26,8 +23,8 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
-        Intent intent = new Intent(this, DataToServerService.class);
-        intent.putExtra("Creator", new CellDataManagerCreator());
+        Intent intent = new Intent(this, ReactionService.class);
+        intent.putExtra("Creator", new ReactionSubsystemCreator());
         startService(intent);
     }
 
@@ -57,9 +54,7 @@ public class MainActivity extends AppCompatActivity{
         TextView textView = (TextView) findViewById(R.id.SomeName);
         String ret = "";
         try{
-            DatabaseMake databaseMake = new DatabaseMake(new DatabaseFacade());
-            boolean k = databaseMake.databaseFacade.checkIfExsistsGSM(AppDatabase.getAppDatabase(this),"65491","52911","260","2");
-            ret += Boolean.toString(k);
+
         }
         catch(Exception e){
             ret = "chuj kurwa";
