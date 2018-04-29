@@ -32,16 +32,28 @@ public class DatabaseMake {
 
         @Override
         protected Void doInBackground(final Void... params) {
+            /*GMS gsm = new GMS();
+            gsm.setCID(65491);
+            gsm.setLAC(52911);
+            gsm.setMCC(260);
+            gsm.setMNC(2);
+            databaseFacade.addGms(mDb,gsm);
+            gsm.setCID(63975);
+            gsm.setLAC(52911);
+            gsm.setMCC(260);
+            gsm.setMNC(2);
+            databaseFacade.addGms(mDb,gsm);
+            gsm.setCID(63980);
+            gsm.setLAC(52911);
+            gsm.setMCC(260);
+            gsm.setMNC(2);
+            databaseFacade.addGms(mDb,gsm);
+            gsm.setCID(63960);
+            gsm.setLAC(52911);
+            gsm.setMCC(260);
+            gsm.setMNC(2);
+            databaseFacade.addGms(mDb,gsm);*/
             return null;
-            /*CDMA cdma=new CDMA();
-            cdma.setLATITUDE(23.6f);
-            cdma.setLONGITUDE(12.4f);
-            cdma.setNETWORK_ID(23);
-            cdma.setBASESTATION_ID(12);
-//            databaseInitializer.addCdma(mDb,cdma);
-            cdma.setNETWORK_ID(24);
-            databaseFacade.updateCDMA(mDb,cdma);
-            return null;*/
         }
 
     }

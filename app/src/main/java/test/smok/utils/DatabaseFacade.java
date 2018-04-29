@@ -55,6 +55,8 @@ public class DatabaseFacade {
         return db.lteDao().getAll();
     }
 
+    public boolean checkIfExsistsGSM(final AppDatabase db, String cid, String lac, String mcc, String mnc){return db.gmsDao().checkIfExists(cid,lac,mcc,mnc);}
+
     public void updateGMS(final AppDatabase db, GMS gms){
         db.gmsDao().update(gms);
     }

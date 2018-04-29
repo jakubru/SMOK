@@ -13,27 +13,22 @@ import android.widget.TextView;
 import test.smok.database.AppDatabase;
 import test.smok.logic.CellDataManagerCreator;
 import test.smok.logic.DataToServerService;
-import test.smok.logic.ReactionService;
-import test.smok.logic.ReactionSubsystemCreator;
 import test.smok.utils.DatabaseFacade;
 import test.smok.utils.DatabaseMake;
 
 public class MainActivity extends AppCompatActivity{
     public static Context context;
+    public static int i = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         MainActivity.context=getApplicationContext();
         Intent intent = new Intent(this, DataToServerService.class);
-        intent.putExtra("Creator",new CellDataManagerCreator());
+        intent.putExtra("Creator", new CellDataManagerCreator());
         startService(intent);
-        Intent intent1 = new Intent(this, ReactionService.class);
-        intent1.putExtra("Creator", new ReactionSubsystemCreator());
-        startService(intent1);
     }
 
     @Override
@@ -60,14 +55,14 @@ public class MainActivity extends AppCompatActivity{
 
     public void onRefreshButtonClick(View view){
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String ret;
+        String ret = "";
         try{
-            ret = context.getFilesDir().getPath();
-            DatabaseMake databaseMake=new DatabaseMake(new DatabaseFacade());
-            databaseMake.populateAsync(AppDatabase.getAppDatabase(this));
+            DatabaseMake databaseMake = new DatabaseMake(new DatabaseFacade());
+            boolean k = databaseMake.databaseFacade.checkIfExsistsGSM(AppDatabase.getAppDatabase(this),"65491","52911","260","2");
+            ret += Boolean.toString(k);
         }
         catch(Exception e){
-            ret = "za wczesnie";
+            ret = "chuj kurwa";
         }
         textView.setText(ret);
     }

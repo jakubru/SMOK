@@ -29,7 +29,9 @@ public class ReactionSubsystem extends Subsystem {
 
     @Override
     public void react() {
-        sendNotification();
+        CellDataCollector cellDataCollector = (CellDataCollector) mDataCollector;
+        String registered = cellDataCollector.getRegistered();
+
     }
 
     private void sendNotification(){

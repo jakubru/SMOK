@@ -21,8 +21,8 @@ public interface GmsDao {
     List<GMS> getAll();
 
 
-//    @Query("SELECT * FROM lte where first_name LIKE  :firstName AND last_name LIKE :lastName")
-//    User findByName(String firstName, String lastName);
+    @Query("SELECT (EXISTS (SELECT * FROM gms WHERE CID = :CID AND LAC = :LAC AND MCC = :MCC AND MNC = :MNC))")
+    boolean checkIfExists(String CID, String LAC, String MCC, String MNC);
 
 //    @Query("SELECT COUNT(*) from user")
 //    int countUsers();
