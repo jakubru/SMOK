@@ -19,9 +19,9 @@ public class Configuration {
     private int mDataSendTime;
     private int mDatabaseCheckTime;
     private Context mContext;
-    private float mLongitude;
-    private float mLatitude;
-    private float mRadius;
+    private double mLongitude;
+    private double mLatitude;
+    private double mRadius;
 
     public static Configuration getInstance(Context context){
         if (mInstance == null){
@@ -45,6 +45,9 @@ public class Configuration {
         Scanner in = new Scanner(file);
         this.mDataSendTime = Integer.parseInt(in.nextLine());
         this.mDatabaseCheckTime = Integer.parseInt(in.nextLine());
+        this.mLatitude = Double.parseDouble(in.nextLine());
+        this.mLongitude = Double.parseDouble(in.nextLine());
+        this.mRadius = Double.parseDouble(in.nextLine());
         /*TODO wersja nie xml, tylko po to ,zeby sprawdzić czy dziala, domyślnie ma byc pobieranie z formatu XML tak jak metodę wyżej */
     }
 
@@ -64,15 +67,15 @@ public class Configuration {
         return mDataSendTime;
     }
 
-    public float getLongitude(){
+    public double getLongitude(){
         return this.mLongitude;
     }
 
-    public float getLatitude(){
+    public double getLatitude(){
         return this.mLatitude;
     }
 
-    public float getRadius(){
+    public double getRadius(){
         return this.mRadius;
     }
 }

@@ -19,13 +19,13 @@ public class ReactionSubsystem extends Subsystem {
 
     private DataCollector mDataCollector;
     private DatabaseMake mDatabaseMake;
-    private GPSLocationListener  mGPSLocationListener;
+    private GPSDataCollector mGPSDataCollector;
 
     public ReactionSubsystem(Context context, DataCollector dataCollector) {
         super(context);
         this.mDataCollector = dataCollector;
         this.mDatabaseMake = new DatabaseMake(new DatabaseFacade());
-        this.mGPSLocationListener = new GPSLocationListener();
+        this.mGPSDataCollector = new GPSDataCollector(context);
     }
 
     @Override
@@ -33,7 +33,9 @@ public class ReactionSubsystem extends Subsystem {
         CellDataCollector cellDataCollector = (CellDataCollector) mDataCollector;
         String [] registered = cellDataCollector.getRegisteredCellInfo();
         boolean flag = true;
-        if (true/*TODO tu będzie warunek sprawdzający, czy komórka znajduje się w określonej lokalizacji*/) {
+        Configuration conf = Configuration.getInstance(mContext);
+        double radius = Functions.checkArea(conf.getLatitude(),conf.getLongitude(),mGPSDataCollector.getLat(), mGPSDataCollector.getLong());
+        if (radius < conf.getRadius()) {
             if (registered[0] == "GSM") {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsGSM(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[5]);
             }

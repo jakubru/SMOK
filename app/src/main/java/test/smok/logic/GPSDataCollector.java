@@ -28,4 +28,11 @@ public class GPSDataCollector implements DataCollector {
         return "NetworkType:GPS"+";"+"Longitude:"+Double.toString(this.mGPSLocationListener.getLongitude()) + ";" + "Latitude:"+Double.toString(this.mGPSLocationListener.getLatitude()) + ";" + "Accuracy:"+Float.toString(this.mGPSLocationListener.getAccuracy()) + "|";
     }
 
+    public double getLong(){
+        return this.mGPSLocationListener.getLongitude();
+    }
+
+    public double getLat(){
+        return this.mGPSLocationListener.getLatitude();
+    }
 }

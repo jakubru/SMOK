@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
  * Created by Kuba on 08.04.2018.
  */
 
+
 public class DataToServerService extends IntentService {
 
     private DataManager mDataManager;
