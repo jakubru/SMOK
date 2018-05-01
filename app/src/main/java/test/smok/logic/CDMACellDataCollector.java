@@ -16,9 +16,17 @@ import java.util.List;
 @TargetApi(18)
 public class CDMACellDataCollector extends CellDataCollector {
 
-    public CDMACellDataCollector(Context context){
-        super(context);
+    private static CDMACellDataCollector mInstance;
 
+    private CDMACellDataCollector(Context context){
+        super(context);
+    }
+
+    public static CDMACellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new CDMACellDataCollector(context);
+        }
+        return mInstance;
     }
 
     @Override

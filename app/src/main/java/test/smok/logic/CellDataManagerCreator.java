@@ -15,18 +15,18 @@ public class CellDataManagerCreator extends DataManagerCreator {
 
     @Override
     public DataManager createDataManager(Context context) {
-        DataCollector gps = new GPSDataCollector(context);
-        GSMCellDataCollector g = new GSMCellDataCollector(context);
-        LTECellDataCollector l = new LTECellDataCollector(context);
-        CDMACellDataCollector c = new CDMACellDataCollector(context);
-        WCDMACellDataCollector w = new WCDMACellDataCollector(context);
+        DataCollector gps = GPSDataCollector.getInstance(context);
+        GSMCellDataCollector g = GSMCellDataCollector.getInstance(context);
+        LTECellDataCollector l = LTECellDataCollector.getInstance(context);
+        CDMACellDataCollector c = CDMACellDataCollector.getInstance(context);
+        WCDMACellDataCollector w = WCDMACellDataCollector.getInstance(context);
         g.setNextCollector(l);
         l.setNextCollector(c);
         c.setNextCollector(w);
         DataManager dataManager = new DataManager(new XMLDataParser(), context);
         dataManager.addCollector(gps);
         dataManager.addCollector(g);
-        dataManager.addCollector(new TimestampCollector());
+        dataManager.addCollector(TimestampCollector.getInstance());
         return dataManager;
     }
 

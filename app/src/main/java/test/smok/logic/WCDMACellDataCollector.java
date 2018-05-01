@@ -15,10 +15,17 @@ import java.util.List;
 @TargetApi(18)
 public class WCDMACellDataCollector extends CellDataCollector {
 
+    private static WCDMACellDataCollector mInstance;
 
-    public WCDMACellDataCollector(Context context){
+    private WCDMACellDataCollector(Context context){
         super(context);
+    }
 
+    public static WCDMACellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new WCDMACellDataCollector(context);
+        }
+        return mInstance;
     }
 
     @Override

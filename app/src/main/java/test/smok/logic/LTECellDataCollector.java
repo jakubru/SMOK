@@ -15,9 +15,17 @@ import java.util.List;
 @TargetApi(18)
 public class LTECellDataCollector extends CellDataCollector {
 
-    public LTECellDataCollector(Context context){
-        super(context);
+    private static LTECellDataCollector mInstance;
 
+    private LTECellDataCollector(Context context){
+        super(context);
+    }
+
+    public static LTECellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new LTECellDataCollector(context);
+        }
+        return mInstance;
     }
 
     @Override

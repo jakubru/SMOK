@@ -30,10 +30,10 @@ public class ReactionSubsystemCreator extends SubsystemCreator {
 
     @Override
     public Subsystem createSubsystem(Context context) {
-        GSMCellDataCollector g = new GSMCellDataCollector(context);
-        LTECellDataCollector l = new LTECellDataCollector(context);
-        CDMACellDataCollector c = new CDMACellDataCollector(context);
-        WCDMACellDataCollector w = new WCDMACellDataCollector(context);
+        GSMCellDataCollector g = GSMCellDataCollector.getInstance(context);
+        LTECellDataCollector l = LTECellDataCollector.getInstance(context);
+        CDMACellDataCollector c = CDMACellDataCollector.getInstance(context);
+        WCDMACellDataCollector w = WCDMACellDataCollector.getInstance(context);
         g.setNextCollector(l);
         l.setNextCollector(c);
         c.setNextCollector(w);

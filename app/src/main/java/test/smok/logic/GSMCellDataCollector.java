@@ -15,9 +15,19 @@ import java.util.List;
 @TargetApi(18)
 public class GSMCellDataCollector extends CellDataCollector {
 
-    public GSMCellDataCollector(Context context){
+    private static GSMCellDataCollector mInstance;
+
+    private GSMCellDataCollector(Context context){
         super(context);
     }
+
+    public static GSMCellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new GSMCellDataCollector(context);
+        }
+        return mInstance;
+    }
+
 
     @Override
     protected String [] getRegistered() {

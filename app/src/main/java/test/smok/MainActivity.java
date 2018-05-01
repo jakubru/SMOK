@@ -10,24 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import test.smok.logic.CDMACellDataCollector;
+import test.smok.logic.CellDataCollector;
+import test.smok.logic.CellDataManagerCreator;
 import test.smok.logic.Configuration;
+import test.smok.logic.DataToServerService;
 import test.smok.logic.Functions;
 import test.smok.logic.GPSDataCollector;
 import test.smok.logic.GSMCellDataCollector;
-import test.smok.logic.LTECellDataCollector;
 import test.smok.logic.ReactionService;
 import test.smok.logic.ReactionSubsystemCreator;
-import test.smok.logic.WCDMACellDataCollector;
 
 public class MainActivity extends AppCompatActivity{
     public static Context context;
     public static int i = 0;
-    GPSDataCollector gps;
-    GSMCellDataCollector g;
-    LTECellDataCollector l;
-    CDMACellDataCollector c;
-    WCDMACellDataCollector w;
+    CellDataCollector cellDataCollector;
+    GPSDataCollector gpsDataCollector;
 
 
     @Override
@@ -39,18 +36,12 @@ public class MainActivity extends AppCompatActivity{
         MainActivity.context=getApplicationContext();
         Intent intent = new Intent(this, ReactionService.class);
         intent.putExtra("Creator", new ReactionSubsystemCreator());
-        /*Intent intent1 = new Intent(this, DataToServerService.class);
+        Intent intent1 = new Intent(this, DataToServerService.class);
         intent1.putExtra("Creator", new CellDataManagerCreator());
-        startService(intent1);*/
-        gps = new GPSDataCollector(context);
-        g = new GSMCellDataCollector(context);
-        l = new LTECellDataCollector(context);
-        c = new CDMACellDataCollector(context);
-        w = new WCDMACellDataCollector(context);
-        g.setNextCollector(l);
-        l.setNextCollector(c);
-        c.setNextCollector(w);
+        startService(intent1);
         startService(intent);
+        gpsDataCollector = GPSDataCollector.getInstance(context);
+        cellDataCollector = GSMCellDataCollector.getInstance(context);
     }
 
     @Override
@@ -77,9 +68,9 @@ public class MainActivity extends AppCompatActivity{
 
     public void onRefreshButtonClick(View view){
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String ret = "odleglosc" + Functions.checkArea(gps.getLat(), gps.getLong(), Configuration.getInstance(this).getLatitude(), Configuration.getInstance(this).getLongitude()) + "\n\n";
-        ret += "CID " + g.getRegisteredCellInfo()[1] + "\n\n";
-        ret += "wspolrzedne " + gps.collectData() + "\n\n";
+        String ret = "odleglosc " + Functions.checkArea(gpsDataCollector.getLat(), gpsDataCollector.getLong(), Configuration.getInstance(this).getLatitude(), Configuration.getInstance(this).getLongitude()) + "\n\n";
+        ret += "CID " + cellDataCollector.getRegisteredCellInfo()[1] + "\n\n";
+        ret += "wspolrzedne " + gpsDataCollector.getLat() + " " + gpsDataCollector.getLong();
 
         textView.setText(ret);
     }

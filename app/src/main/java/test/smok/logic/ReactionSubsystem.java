@@ -25,7 +25,7 @@ public class ReactionSubsystem extends Subsystem {
         super(context);
         this.mDataCollector = dataCollector;
         this.mDatabaseMake = new DatabaseMake(new DatabaseFacade());
-        this.mGPSDataCollector = new GPSDataCollector(context);
+        this.mGPSDataCollector = GPSDataCollector.getInstance(context);
     }
 
     @Override

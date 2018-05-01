@@ -21,4 +21,5 @@ public class Functions {
     private static double degreesToRadians(double degrees){
         return degrees * Math.PI /180;
     }
+
 }
