@@ -20,12 +20,14 @@ public class ReactionSubsystem extends Subsystem {
     private DataCollector mDataCollector;
     private DatabaseMake mDatabaseMake;
     private GPSDataCollector mGPSDataCollector;
+    private boolean earlierState;
 
     public ReactionSubsystem(Context context, DataCollector dataCollector) {
         super(context);
         this.mDataCollector = dataCollector;
         this.mDatabaseMake = new DatabaseMake(new DatabaseFacade());
         this.mGPSDataCollector = GPSDataCollector.getInstance(context);
+        this.earlierState = true;
     }
 
     @Override
@@ -49,18 +51,22 @@ public class ReactionSubsystem extends Subsystem {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsLTE(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[3], registered[4], registered[5]);
             }
         }
-        if(!flag){
-            sendNotification();
+        if(flag && !earlierState){
+            sendOKNotification();
+        }
+        if(!flag && earlierState){
+            sendAlertNotification();
             /*TODO przydałaby się też informacja na serwer*/
         }
+        earlierState = flag;
     }
 
-    private void sendNotification(){
+    private void sendAlertNotification(){
         NotificationCompat.Builder builder =
                 (NotificationCompat.Builder) new NotificationCompat.Builder(this.mContext)
                         .setSmallIcon(R.drawable.mylogo)
-                        .setContentTitle("My Notification Title")
-                        .setContentText("Something interesting happened");
+                        .setContentTitle("Niedobrze")
+                        .setContentText("Niezarejestrowana stacja");
         int NOTIFICATION_ID = 12345;
 
         Intent targetIntent = new Intent(this.mContext, ReactionService.class);
@@ -70,4 +76,18 @@ public class ReactionSubsystem extends Subsystem {
         nManager.notify(NOTIFICATION_ID, builder.build());
     }
 
+    private void sendOKNotification(){
+        NotificationCompat.Builder builder =
+                (NotificationCompat.Builder) new NotificationCompat.Builder(this.mContext)
+                        .setSmallIcon(R.drawable.mylogo)
+                        .setContentTitle("Dobrze")
+                        .setContentText("Zarejestrowana stacja");
+        int NOTIFICATION_ID = 12346;
+
+        Intent targetIntent = new Intent(this.mContext, ReactionService.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this.mContext, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+        NotificationManager nManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
+        nManager.notify(NOTIFICATION_ID, builder.build());
+    }
 }

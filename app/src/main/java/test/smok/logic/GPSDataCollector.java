@@ -17,7 +17,7 @@ public class GPSDataCollector implements DataCollector {
         this.mLocationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         this.mGPSLocationListener = new GPSLocationListener();
         try{
-            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,100,1,this.mGPSLocationListener);
+            mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,7000,100,this.mGPSLocationListener);
         }
         catch(SecurityException e){
 
