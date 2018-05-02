@@ -24,6 +24,9 @@ public interface WcdmaDao {
 //    @Query("SELECT COUNT(*) from user")
 //    int countUsers();
 
+    @Query("SELECT (EXISTS (SELECT * FROM wcdma WHERE CID = :CID AND LAC = :LAC AND MCC = :MCC AND MNC = :MNC))")
+    boolean checkIfExists(String CID, String LAC, String MCC, String MNC);
+
     @Update
     void update(WCDMA wcdma);
     @Insert

@@ -8,7 +8,7 @@ import android.content.Context;
 
 public abstract class Subsystem {
 
-    private Context mContext;
+    protected Context mContext;
     public Subsystem(Context context){
         this.mContext = context;
     }

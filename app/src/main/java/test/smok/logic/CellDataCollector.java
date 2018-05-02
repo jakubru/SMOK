@@ -16,7 +16,7 @@ public abstract class CellDataCollector implements DataCollector {
 
     public String collectData(){
         try{
-            return collect();
+            return "IMSI:" + getIMSI() +";" + collect();
         }
         catch(Exception e){
             return nextCellDataCollector.collectData();
@@ -27,7 +27,7 @@ public abstract class CellDataCollector implements DataCollector {
         this.nextCellDataCollector = cellDataCollector;
     }
 
-    protected String getIMSI(){
+    private String getIMSI(){
         try{
             return this.mTelephonyManager.getSubscriberId();
         }
@@ -36,14 +36,14 @@ public abstract class CellDataCollector implements DataCollector {
         }
     }
 
-    abstract protected String getRegistered();
+    abstract protected String [] getRegistered();
 
-    public String getRegisteredCellInfo(){
+    public String [] getRegisteredCellInfo(){
         try{
             return getRegistered();
         }
         catch(Exception e){
-            return nextCellDataCollector.getRegistered();
+            return nextCellDataCollector.getRegisteredCellInfo();
         }
     }
 }

@@ -16,15 +16,23 @@ import java.util.List;
 @TargetApi(18)
 public class CDMACellDataCollector extends CellDataCollector {
 
-    public CDMACellDataCollector(Context context){
-        super(context);
+    private static CDMACellDataCollector mInstance;
 
+    private CDMACellDataCollector(Context context){
+        super(context);
+    }
+
+    public static CDMACellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new CDMACellDataCollector(context);
+        }
+        return mInstance;
     }
 
     @Override
-    protected String getRegistered() {
+    protected String [] getRegistered() {
         List<CellInfo> cellInfoList = null;
-        String returnString;
+        String [] stringArray = new String[5];
 
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
@@ -33,21 +41,19 @@ public class CDMACellDataCollector extends CellDataCollector {
 
         }
 
-        returnString = "";
+        stringArray [0] = "CDMA";
 
         for (CellInfo cellInfo: cellInfoList){
             if(cellInfo.isRegistered()) {
                 CellInfoCdma cellInfoCdma = (CellInfoCdma) cellInfo;
                 CellIdentityCdma cellIdentityCdma = cellInfoCdma.getCellIdentity();
-                CellSignalStrengthCdma cellSignalStrengthCdma = cellInfoCdma.getCellSignalStrength();
-                returnString += "NetworkType:CDMA;BasestationID:" + cellIdentityCdma.getBasestationId() + ";Latitude:" + cellIdentityCdma.getLatitude() + ";Longitude:" + cellIdentityCdma.getLongitude()
-                        + ";NetworkID:" + cellIdentityCdma.getNetworkId() + ";SystemID:" + cellIdentityCdma.getSystemId() + ";AsuLevel:" + cellSignalStrengthCdma.getAsuLevel()
-                        + ";CDMADBM:" + cellSignalStrengthCdma.getCdmaDbm() + ";CDMAECIO:" + cellSignalStrengthCdma.getCdmaEcio() + ";CDMALevel:" + cellSignalStrengthCdma.getCdmaLevel()
-                        + ";DBM:" + cellSignalStrengthCdma.getDbm() + ";EVDODBM:" + cellSignalStrengthCdma.getEvdoDbm() + ";EVDOECIO:" + cellSignalStrengthCdma.getEvdoEcio()
-                        + ";EVDOLevel:" + cellSignalStrengthCdma.getEvdoLevel() + ";EVDOSNR:" + cellSignalStrengthCdma.getEvdoSnr() + ";Level:" + cellSignalStrengthCdma.getLevel() + ";IMSI:" + getIMSI() + "|";
+                stringArray[1] = Integer.toString(cellIdentityCdma.getBasestationId());
+                stringArray[2] = Integer.toString(cellIdentityCdma.getLatitude());
+                stringArray[3] = Integer.toString(cellIdentityCdma.getLongitude());
+                stringArray[4] = Integer.toString(cellIdentityCdma.getNetworkId());
             }
         }
-        return returnString;
+        return stringArray;
     }
 
     @Override
@@ -74,7 +80,7 @@ public class CDMACellDataCollector extends CellDataCollector {
                     + ";NetworkID:" + cellIdentityCdma.getNetworkId() + ";SystemID:" + cellIdentityCdma.getSystemId() + ";AsuLevel:" + cellSignalStrengthCdma.getAsuLevel()
                     + ";CDMADBM:" + cellSignalStrengthCdma.getCdmaDbm() + ";CDMAECIO:" + cellSignalStrengthCdma.getCdmaEcio() + ";CDMALevel:" + cellSignalStrengthCdma.getCdmaLevel()
                     + ";DBM:" + cellSignalStrengthCdma.getDbm()+ ";EVDODBM:" + cellSignalStrengthCdma.getEvdoDbm() + ";EVDOECIO:" + cellSignalStrengthCdma.getEvdoEcio()
-                    + ";EVDOLevel:" + cellSignalStrengthCdma.getEvdoLevel() + ";EVDOSNR:" + cellSignalStrengthCdma.getEvdoSnr() + ";Level:" + cellSignalStrengthCdma.getLevel() + ";IMSI:"+ getIMSI()+ "|";
+                    + ";EVDOLevel:" + cellSignalStrengthCdma.getEvdoLevel() + ";EVDOSNR:" + cellSignalStrengthCdma.getEvdoSnr() + ";Level:" + cellSignalStrengthCdma.getLevel() + "|";
 
         }
         return returnString;

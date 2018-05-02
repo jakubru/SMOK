@@ -25,6 +25,9 @@ public interface LteDao {
 //    @Query("SELECT COUNT(*) from user")
 //    int countUsers();
 
+    @Query("SELECT (EXISTS (SELECT * FROM lte WHERE CI = :CI AND TAC = :TAC AND MNC = :MNC AND PCI = :PCI))")
+    boolean checkIfExists(String CI, String MNC,String PCI,String TAC);
+
     @Update
     void update(LTE lte);
     @Insert

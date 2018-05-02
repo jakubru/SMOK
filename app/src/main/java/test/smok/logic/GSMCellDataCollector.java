@@ -15,33 +15,45 @@ import java.util.List;
 @TargetApi(18)
 public class GSMCellDataCollector extends CellDataCollector {
 
-    public GSMCellDataCollector(Context context){
+    private static GSMCellDataCollector mInstance;
+
+    private GSMCellDataCollector(Context context){
         super(context);
     }
 
+    public static GSMCellDataCollector getInstance(Context context){
+        if(mInstance == null){
+            mInstance = new GSMCellDataCollector(context);
+        }
+        return mInstance;
+    }
+
+
     @Override
-    protected String getRegistered() {
+    protected String [] getRegistered() {
         List<CellInfo> cellInfoList = null;
-        String returnString;
+        String [] stringArray = new String[7];
         try{
             cellInfoList = mTelephonyManager.getAllCellInfo();
         }
         catch(SecurityException e){
 
         }
-        returnString = "";
+        stringArray[0] = "GSM";
         for (CellInfo cellInfo:cellInfoList)
         {
             if(cellInfo.isRegistered()){
                 CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
                 CellIdentityGsm cellIdentityGsm = cellInfoGsm.getCellIdentity();
-                CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
-                returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
-                    + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + ";IMSI:"+ getIMSI() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+                stringArray[1] = Integer.toString(cellIdentityGsm.getCid());
+                stringArray[2] = Integer.toString(cellIdentityGsm.getLac()) ;
+                stringArray[3] = Integer.toString(cellIdentityGsm.getMcc());
+                //stringArray[4] = cellIdentityGsm.getBsic();
+                stringArray[5] = Integer.toString(cellIdentityGsm.getMnc());
+                stringArray[6] = Integer.toString(cellIdentityGsm.getPsc());
             }
         }
-        return returnString;
+        return stringArray;
     }
 
 
@@ -63,7 +75,7 @@ public class GSMCellDataCollector extends CellDataCollector {
             CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
             returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
                     + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + ";IMSI:"+ getIMSI() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+                    ";DBM:" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
         }
         return returnString;
     }
