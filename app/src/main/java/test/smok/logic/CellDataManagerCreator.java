@@ -41,6 +41,7 @@ public class CellDataManagerCreator extends DataManagerCreator {
         }
     };
 
+    public CellDataManagerCreator(){}
     private CellDataManagerCreator(Parcel in){
 
     }
