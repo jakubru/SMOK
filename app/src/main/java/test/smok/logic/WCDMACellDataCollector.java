@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Kuba on 03.03.2018.
  */
-@TargetApi(18)
+@TargetApi(24)
 public class WCDMACellDataCollector extends CellDataCollector {
 
     private static WCDMACellDataCollector mInstance;
@@ -72,7 +72,7 @@ public class WCDMACellDataCollector extends CellDataCollector {
             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
             CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
             CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
-            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
+            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac()  + ";ARFCN:" + cellIdentityWcdma.getUarfcn()  +  ";MCC:" + cellIdentityWcdma.getMcc()
                     + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
                     ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + "|";
         }

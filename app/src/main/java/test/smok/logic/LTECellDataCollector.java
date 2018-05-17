@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Kuba on 03.03.2018.
  */
-@TargetApi(18)
+@TargetApi(24)
 public class LTECellDataCollector extends CellDataCollector {
 
     private static LTECellDataCollector mInstance;
@@ -69,7 +69,7 @@ public class LTECellDataCollector extends CellDataCollector {
             CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
             CellIdentityLte cellIdentityLte = cellInfoLte.getCellIdentity();
             CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
-            returnString += "NetworkType:LTE;CI:" + cellIdentityLte.getCi() /*+ ";EARFCN:" + cellIdentityLte.getEarfcn()*/ + ";MCC:" + cellIdentityLte.getMcc() + ";MNC:" + cellIdentityLte.getMnc()
+            returnString += "NetworkType:LTE;CI:" + cellIdentityLte.getCi() + ";EARFCN:" + cellIdentityLte.getEarfcn() + ";MCC:" + cellIdentityLte.getMcc() + ";MNC:" + cellIdentityLte.getMnc()
                     + ";PCI:" +  cellIdentityLte.getPci() + ";TAC:" + cellIdentityLte.getTac() + ";AsuLevel:" + cellSignalStrengthLte.getAsuLevel() /* + ";CQI:" + cellSignalStrengthLte.getCqi() */
                     + ";DBM:" + cellSignalStrengthLte.getDbm() + ";Level:" + cellSignalStrengthLte.getLevel() /*+ ";RSRP:" + cellSignalStrengthLte.getRsrp() + ";RSRQ:" + cellSignalStrengthLte.getRsrq()
                     + ";RSSNR:" + cellSignalStrengthLte.getRssnr()*/ + ";TimingAdvance:" + cellSignalStrengthLte.getTimingAdvance() + "|";
