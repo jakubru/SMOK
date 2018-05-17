@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Kuba on 16.12.2017.
  */
-@TargetApi(18)
+@TargetApi(24)
 public class GSMCellDataCollector extends CellDataCollector {
 
     private static GSMCellDataCollector mInstance;
@@ -73,7 +73,7 @@ public class GSMCellDataCollector extends CellDataCollector {
             CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
             CellIdentityGsm cellIdentityGsm = cellInfoGsm.getCellIdentity();
             CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
-            returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() /*+ ";ARFCN:" + cellIdentityGsm.getArfcn()*/  + ";MCC:" + cellIdentityGsm.getMcc()
+            returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() + ";ARFCN:" + cellIdentityGsm.getArfcn()  + ";MCC:" + cellIdentityGsm.getMcc()
                     + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
                     ";DBM:" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
         }
