@@ -69,10 +69,21 @@ public class LTECellDataCollector extends CellDataCollector {
             CellInfoLte cellInfoLte = (CellInfoLte) cellInfo;
             CellIdentityLte cellIdentityLte = cellInfoLte.getCellIdentity();
             CellSignalStrengthLte cellSignalStrengthLte = cellInfoLte.getCellSignalStrength();
-            returnString += "NetworkType:LTE;CI:" + cellIdentityLte.getCi() + ";EARFCN:" + cellIdentityLte.getEarfcn() + ";MCC:" + cellIdentityLte.getMcc() + ";MNC:" + cellIdentityLte.getMnc()
-                    + ";PCI:" +  cellIdentityLte.getPci() + ";TAC:" + cellIdentityLte.getTac() + ";AsuLevel:" + cellSignalStrengthLte.getAsuLevel() /* + ";CQI:" + cellSignalStrengthLte.getCqi() */
-                    + ";DBM:" + cellSignalStrengthLte.getDbm() + ";Level:" + cellSignalStrengthLte.getLevel() /*+ ";RSRP:" + cellSignalStrengthLte.getRsrp() + ";RSRQ:" + cellSignalStrengthLte.getRsrq()
-                    + ";RSSNR:" + cellSignalStrengthLte.getRssnr()*/ + ";TimingAdvance:" + cellSignalStrengthLte.getTimingAdvance() + "|";
+            returnString += "NetworkType:LTE;CI:" + cellIdentityLte.getCi();
+            try {
+                returnString += ";EARFCN:" + cellIdentityLte.getEarfcn();
+            }catch(Exception e){}
+            returnString += ";MCC:" + cellIdentityLte.getMcc();
+            returnString += ";MNC:" + cellIdentityLte.getMnc();
+            returnString += ";PCI:" +  cellIdentityLte.getPci();
+            returnString += ";TAC:" + cellIdentityLte.getTac();
+            returnString += ";AsuLevel:" + cellSignalStrengthLte.getAsuLevel();
+            /* + ";CQI:" + cellSignalStrengthLte.getCqi() */
+            returnString += ";DBM:" + cellSignalStrengthLte.getDbm();
+            returnString += ";Level:" + cellSignalStrengthLte.getLevel();
+            /*+ ";RSRP:" + cellSignalStrengthLte.getRsrp() + ";RSRQ:" + cellSignalStrengthLte.getRsrq()
+            + ";RSSNR:" + cellSignalStrengthLte.getRssnr()*/
+            returnString += ";TimingAdvance:" + cellSignalStrengthLte.getTimingAdvance() + "|";
 
         }
 

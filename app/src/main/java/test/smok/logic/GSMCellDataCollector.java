@@ -6,6 +6,7 @@ import android.telephony.CellInfo;
 import android.telephony.CellInfoGsm;
 import android.telephony.CellSignalStrengthGsm;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 
@@ -68,14 +69,25 @@ public class GSMCellDataCollector extends CellDataCollector {
 
         }
         returnString = "";
+
+        Method[] method = CellIdentityGsm.class.getMethods();
         for (CellInfo cellInfo:cellInfoList)
         {
             CellInfoGsm cellInfoGsm = (CellInfoGsm) cellInfo;
             CellIdentityGsm cellIdentityGsm = cellInfoGsm.getCellIdentity();
             CellSignalStrengthGsm cellSignalStrengthGsm = cellInfoGsm.getCellSignalStrength();
-            returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid() + ";LAC:" + cellIdentityGsm.getLac() + ";ARFCN:" + cellIdentityGsm.getArfcn()  + ";MCC:" + cellIdentityGsm.getMcc()
-                    + /*";BSIC:" + cellIdentityGsm.getBsic() + */ ";MNC:" + cellIdentityGsm.getMnc() + ";PSC:" + cellIdentityGsm.getPsc() + ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel() +
-                    ";DBM:" + cellSignalStrengthGsm.getDbm() + ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
+            returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid();
+            returnString += ";LAC:" + cellIdentityGsm.getLac();
+            try {
+                returnString += ";ARFCN:" + cellIdentityGsm.getArfcn();
+            }catch(Exception e){}
+            returnString += ";MCC:" + cellIdentityGsm.getMcc();
+                    /*+ ";BSIC:" + cellIdentityGsm.getBsic() */
+            returnString += ";MNC:" + cellIdentityGsm.getMnc();
+            returnString += ";PSC:" + cellIdentityGsm.getPsc();
+            returnString += ";AsuLevel:" + cellSignalStrengthGsm.getAsuLevel();
+            returnString += ";DBM:" + cellSignalStrengthGsm.getDbm();
+            returnString += ";Level:" + cellSignalStrengthGsm.getLevel() + "|";/* + ";TimingAdvance:" + cellSignalStrengthGsm.getTimingAdvance();*/
         }
         return returnString;
     }
