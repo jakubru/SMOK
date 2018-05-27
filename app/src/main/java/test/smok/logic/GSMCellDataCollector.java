@@ -79,7 +79,7 @@ public class GSMCellDataCollector extends CellDataCollector {
             returnString += "NetworkType:GSM;CID:" + cellIdentityGsm.getCid();
             returnString += ";LAC:" + cellIdentityGsm.getLac();
             try {
-                returnString += ";ARFCN:" + cellIdentityGsm.getArfcn();
+                ///returnString += ";ARFCN:" + cellIdentityGsm.getArfcn();
             }catch(Exception e){}
             returnString += ";MCC:" + cellIdentityGsm.getMcc();
                     /*+ ";BSIC:" + cellIdentityGsm.getBsic() */
