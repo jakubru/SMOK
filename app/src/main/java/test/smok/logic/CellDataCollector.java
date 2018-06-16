@@ -16,7 +16,7 @@ public abstract class CellDataCollector implements DataCollector {
 
     public String collectData(){
         try{
-            return "IMSI:" + getIMSI() +";" + collect();
+            return "IMSI:" + getIMSI() +"|" + collect();
         }
         catch(Exception e){
             return nextCellDataCollector.collectData();

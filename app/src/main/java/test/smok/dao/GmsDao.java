@@ -27,6 +27,12 @@ public interface GmsDao {
 //    @Query("SELECT COUNT(*) from user")
 //    int countUsers();
 
+    @Query("SELECT LONGITUDE FROM GMS WHERE CID = :CID")
+    float getAccurateLongitude(String CID);
+
+    @Query("SELECT LATITUDE FROM GMS WHERE CID = :CID")
+    float getAccurateLatitude(String CID);
+
     @Update
     void update(GMS gms);
 

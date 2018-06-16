@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity{
         String ret = "odleglosc " + Functions.checkArea(gpsDataCollector.getLat(), gpsDataCollector.getLong(), Configuration.getInstance(this).getLatitude(), Configuration.getInstance(this).getLongitude()) + "\n\n";
         ret += "CID " + cellDataCollector.getRegisteredCellInfo()[1] + "\n\n";
         ret += "wspolrzedne " + gpsDataCollector.getLat() + " " + gpsDataCollector.getLong();
-
         textView.setText(ret);
     }
 
