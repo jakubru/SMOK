@@ -34,18 +34,26 @@ public class ReactionSubsystem extends Subsystem {
     public void react() {
         CellDataCollector cellDataCollector = (CellDataCollector) mDataCollector;
         String [] registered = cellDataCollector.getRegisteredCellInfo();
+        String all = cellDataCollector.collectData();
         boolean flag = true;
         Configuration conf = Configuration.getInstance(mContext);
         double radius = Functions.checkArea(conf.getLatitude(),conf.getLongitude(),mGPSDataCollector.getLat(), mGPSDataCollector.getLong());
         if (radius < conf.getRadius()) {
             if (registered[0] == "GSM") {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsGSM(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[5]);
+                int TA = Integer.parseInt(registered[7]);
+                if(flag && TA > -1 && TA < 220){
+                    double dist = Functions.checkArea(mGPSDataCollector.getLat(), mGPSDataCollector.getLong(), mDatabaseMake.databaseFacade.getBTSLatitude(AppDatabase.getAppDatabase(this.mContext),registered[1]),mDatabaseMake.databaseFacade.getBTSLatitude(AppDatabase.getAppDatabase(this.mContext),registered[1]));
+                    flag = flag && ((0.16 * TA - dist) < 1 );
+                }
+                flag = flag && Functions.checkRepetitions("CID:" + registered[1],mDataCollector.collectData());
             }
             else if (registered[0] == "CDMA") {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsCDMA(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[4]);
             }
             else if (registered[0] == "WCDMA") {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsWCDMA(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[2], registered[3], registered[4]);
+                flag = flag && Functions.checkRepetitions("CID:" + registered[1],mDataCollector.collectData());
             }
             else if (registered[0] == "LTE") {
                 flag = mDatabaseMake.databaseFacade.checkIfExistsLTE(AppDatabase.getAppDatabase(this.mContext), registered[1], registered[3], registered[4], registered[5]);
@@ -89,5 +97,9 @@ public class ReactionSubsystem extends Subsystem {
         builder.setContentIntent(contentIntent);
         NotificationManager nManager = (NotificationManager) mContext.getSystemService(Context.NOTIFICATION_SERVICE);
         nManager.notify(NOTIFICATION_ID, builder.build());
+    }
+
+    private boolean checkRepetitions(String arr[], String s){
+        return true;
     }
 }

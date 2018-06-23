@@ -1,5 +1,8 @@
 package test.smok.logic;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 /**
  * Created by Kuba on 30.04.2018.
  */
@@ -20,6 +23,15 @@ public class Functions {
 
     private static double degreesToRadians(double degrees){
         return degrees * Math.PI /180;
+    }
+
+    public static boolean checkRepetitions(String pattern, String s){
+        Pattern p = Pattern.compile(pattern);
+        int count = 0;
+        Matcher m = p.matcher(s);
+        while (m.find())
+            count++;
+        return count == 1;
     }
 
 }
