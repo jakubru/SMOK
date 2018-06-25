@@ -64,7 +64,6 @@ public class ReactionSubsystem extends Subsystem {
         }
         if(!flag && earlierState){
             sendAlertNotification();
-            /*TODO przydałaby się też informacja na serwer*/
         }
         earlierState = flag;
     }

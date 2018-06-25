@@ -20,11 +20,7 @@ public interface CdmaDao {
 
     @Update
     void update(CDMA cdma);
-//    @Query("SELECT * FROM lte where first_name LIKE  :firstName AND last_name LIKE :lastName")
-//    User findByName(String firstName, String lastName);
 
-//    @Query("SELECT COUNT(*) from user")
-//    int countUsers();
     @Query("SELECT (EXISTS (SELECT * FROM cdma WHERE BASESTATION_ID = :BasestationID AND NETWORKID = :NetworkID AND LONGITUDE = :Longitude AND LATITUDE = :Latitude))")
     boolean checkIfExists(String BasestationID, String Latitude, String Longitude,String NetworkID);
 

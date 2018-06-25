@@ -1,24 +1,18 @@
 package test.smok.logic;
 
-import android.arch.persistence.room.Database;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.telephony.TelephonyManager;
 import android.widget.Toast;
 
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.LinkedHashMap;
@@ -53,7 +47,6 @@ public class SendHashToServer {
                 URL url = null;
                 try {
                     url = new URL("https://smok-prot-5.herokuapp.com/Configuration");
-                    //?IMSI=260021711614296&hashes=GSM:1e213e60eb51b36c004179712b372d3;8
                     Map<String,Object> params = new LinkedHashMap<>();
                     params.put("IMSI", getIMSI());
                     DatabaseHash databaseHash=new DatabaseHash(context);

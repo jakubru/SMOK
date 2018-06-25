@@ -78,11 +78,8 @@ public class LTECellDataCollector extends CellDataCollector {
             returnString += ";PCI:" +  cellIdentityLte.getPci();
             returnString += ";TAC:" + cellIdentityLte.getTac();
             returnString += ";AsuLevel:" + cellSignalStrengthLte.getAsuLevel();
-            /* + ";CQI:" + cellSignalStrengthLte.getCqi() */
             returnString += ";DBM:" + cellSignalStrengthLte.getDbm();
             returnString += ";Level:" + cellSignalStrengthLte.getLevel();
-            /*+ ";RSRP:" + cellSignalStrengthLte.getRsrp() + ";RSRQ:" + cellSignalStrengthLte.getRsrq()
-            + ";RSSNR:" + cellSignalStrengthLte.getRssnr()*/
             returnString += ";TimingAdvance:" + cellSignalStrengthLte.getTimingAdvance() + "|";
 
         }

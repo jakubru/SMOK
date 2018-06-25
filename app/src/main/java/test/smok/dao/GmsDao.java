@@ -24,9 +24,6 @@ public interface GmsDao {
     @Query("SELECT (EXISTS (SELECT * FROM gms WHERE CID = :CID AND LAC = :LAC AND MCC = :MCC AND MNC = :MNC))")
     boolean checkIfExists(String CID, String LAC, String MCC, String MNC);
 
-//    @Query("SELECT COUNT(*) from user")
-//    int countUsers();
-
     @Query("SELECT LONGITUDE FROM GMS WHERE CID = :CID")
     float getAccurateLongitude(String CID);
 

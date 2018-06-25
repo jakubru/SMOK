@@ -32,27 +32,7 @@ public class DatabaseMake {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            /*GMS gsm = new GMS();
-            gsm.setCID(65491);
-            gsm.setLAC(52911);
-            gsm.setMCC(260);
-            gsm.setMNC(2);
-            databaseFacade.addGms(mDb,gsm);
-            gsm.setCID(63975);
-            gsm.setLAC(52911);
-            gsm.setMCC(260);
-            gsm.setMNC(2);
-            databaseFacade.addGms(mDb,gsm);
-            gsm.setCID(63980);
-            gsm.setLAC(52911);
-            gsm.setMCC(260);
-            gsm.setMNC(2);
-            databaseFacade.addGms(mDb,gsm);
-            gsm.setCID(63960);
-            gsm.setLAC(52911);
-            gsm.setMCC(260);
-            gsm.setMNC(2);
-            databaseFacade.addGms(mDb,gsm);*/
+
             return null;
         }
 

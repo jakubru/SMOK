@@ -19,7 +19,6 @@ import java.net.URLConnection;
 
 public class DataFromServerService extends IntentService {
 
-    /* TODO W tym serwisie aplikacja odbiera dane z serwera */
 
     Subsystem mSubsystem;
 

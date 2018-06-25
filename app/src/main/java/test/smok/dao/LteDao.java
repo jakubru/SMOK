@@ -19,11 +19,6 @@ public interface LteDao {
     @Query("SELECT * FROM lte ORDER BY ci ASC")
     List<LTE> getAll();
 
-//    @Query("SELECT * FROM lte where first_name LIKE  :firstName AND last_name LIKE :lastName")
-//    User findByName(String firstName, String lastName);
-
-//    @Query("SELECT COUNT(*) from user")
-//    int countUsers();
 
     @Query("SELECT (EXISTS (SELECT * FROM lte WHERE CI = :CI AND TAC = :TAC AND MNC = :MNC AND PCI = :PCI))")
     boolean checkIfExists(String CI, String MNC,String PCI,String TAC);

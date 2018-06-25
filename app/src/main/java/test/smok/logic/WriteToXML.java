@@ -1,7 +1,5 @@
 package test.smok.logic;
 
-import android.widget.Toast;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -9,8 +7,6 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
-import java.sql.Timestamp;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,8 +17,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import test.smok.MainActivity;
 
 /**
  * Created by matthew on 13.01.18.
@@ -63,9 +57,6 @@ public class WriteToXML {
             doc = docBuilder.newDocument();
             rootElement = doc.createElement("data");
             doc.appendChild(rootElement);
-//            Toast.makeText(MainActivity.getContext(),
-//                    "Create new "+path,
-//                    Toast.LENGTH_SHORT).show();
         }
 //=================================
         String[] nameValue = element[0].split(delimiter);
@@ -74,11 +65,7 @@ public class WriteToXML {
 
         device = doc.createElement("device");
         rootElement.appendChild(device);
-//        Element type = doc.createElement("type");
-//        type.appendChild(doc.createTextNode(nameValue[1]));
-//        device.appendChild(type);
         device.appendChild(networkType);
-        // parametr elements
         Element parametr = null;
 
 
