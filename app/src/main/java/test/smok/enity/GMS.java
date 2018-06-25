@@ -89,4 +89,18 @@ public class GMS {
     public void setPSC(int PSC) {
         this.PSC = PSC;
     }
+
+    @Override
+    public String toString() {
+        return "GMS{" +
+                "CID=" + CID +
+                ", LONGITUDE=" + LONGITUDE +
+                ", LATITUDE=" + LATITUDE +
+                ", BSIC=" + BSIC +
+                ", LAC=" + LAC +
+                ", MCC=" + MCC +
+                ", MNC=" + MNC +
+                ", PSC=" + PSC +
+                '}';
+    }
 }

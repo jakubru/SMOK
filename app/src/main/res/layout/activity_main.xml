@@ -18,6 +18,18 @@
             android:layout_weight="1"
             android:onClick="onRefreshButtonClick"
             android:text="Refresh" />
+        <Button
+            android:id="@+id/updateDatabaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UpdateDatabase" />
+        <Button
+            android:id="@+id/sendHashToServerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="SendHashToServer" />
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
