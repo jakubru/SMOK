@@ -13,7 +13,7 @@ public class LTE {
     @PrimaryKey()
     private int CI;
     @ColumnInfo(name = "longitude")
-    private float LONGITUDE;/*TODO Trzeba dodać MCC tak jak w innych tabelkach, zapomniałem uwzględnić w schemacie bazy*/
+    private float LONGITUDE;
     @ColumnInfo(name = "latitude")
     private float LATITUDE;
     @ColumnInfo(name = "mnc")

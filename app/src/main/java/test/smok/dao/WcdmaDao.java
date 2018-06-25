@@ -18,11 +18,6 @@ public interface WcdmaDao {
     @Query("SELECT * FROM wcdma ORDER BY CID ASC")
     List<WCDMA> getAll();
 
-//    @Query("SELECT * FROM lte where first_name LIKE  :firstName AND last_name LIKE :lastName")
-//    User findByName(String firstName, String lastName);
-
-//    @Query("SELECT COUNT(*) from user")
-//    int countUsers();
 
     @Query("SELECT (EXISTS (SELECT * FROM wcdma WHERE CID = :CID AND LAC = :LAC AND MCC = :MCC AND MNC = :MNC))")
     boolean checkIfExists(String CID, String LAC, String MCC, String MNC);

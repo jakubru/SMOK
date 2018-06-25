@@ -7,7 +7,6 @@ import android.telephony.CellInfo;
 import android.telephony.CellInfoWcdma;
 import android.telephony.CellSignalStrengthWcdma;
 
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -73,7 +72,7 @@ public class WCDMACellDataCollector extends CellDataCollector {
             CellInfoWcdma cellInfoWcdma = (CellInfoWcdma) cellInfo;
             CellIdentityWcdma cellIdentityWcdma = cellInfoWcdma.getCellIdentity();
             CellSignalStrengthWcdma cellSignalStrengthWcdma = cellInfoWcdma.getCellSignalStrength();
-            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac() /* + ";ARFCN:" + cellIdentityWcdma.getUarfcn() */ +  ";MCC:" + cellIdentityWcdma.getMcc()
+            returnString += "NetworkType:WCDMA;CID:" + cellIdentityWcdma.getCid() + ";LAC:" + cellIdentityWcdma.getLac()  +  ";MCC:" + cellIdentityWcdma.getMcc()
                     + ";MNC:" + cellIdentityWcdma.getMnc() + ";PSC:" + cellIdentityWcdma.getPsc() + ";AsuLevel:" + cellSignalStrengthWcdma.getAsuLevel() +
                     ";DBM:" + cellSignalStrengthWcdma.getDbm() + ";Level:" + cellSignalStrengthWcdma.getLevel() + "|";
         }

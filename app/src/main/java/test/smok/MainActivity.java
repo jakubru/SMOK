@@ -18,9 +18,7 @@ import android.widget.Toast;
 
 import test.smok.logic.CellDataCollector;
 import test.smok.logic.CellDataManagerCreator;
-import test.smok.logic.Configuration;
 import test.smok.logic.DataToServerService;
-import test.smok.logic.Functions;
 import test.smok.logic.GPSDataCollector;
 import test.smok.logic.GSMCellDataCollector;
 import test.smok.logic.ReactionService;
@@ -104,8 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onRefreshButtonClick(View view) {
         TextView textView = (TextView) findViewById(R.id.SomeName);
-        String ret = "odleglosc " + Functions.checkArea(gpsDataCollector.getLat(), gpsDataCollector.getLong(), Configuration.getInstance(this).getLatitude(), Configuration.getInstance(this).getLongitude()) + "\n\n";
-        ret += "CID " + cellDataCollector.getRegisteredCellInfo()[1] + "\n\n";
+        String ret = "CID " + cellDataCollector.getRegisteredCellInfo()[1] + "\n\n";
         ret += "wspolrzedne " + gpsDataCollector.getLat() + " " + gpsDataCollector.getLong();
         textView.setText(ret);
     }

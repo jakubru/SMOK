@@ -17,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -57,8 +56,7 @@ public class Configuration {
     }
 
     public void writeConfigToFile(String data){
-        /*TODO tu do pliku potrzeba zapisywać dane w formacie XML, przychodzące z serwera oraz uaktualniać wszystkie pola prywatne po dodaniu pliku*/
-        System.out.println("writeConfigToFile============= "+data);
+
         saveDataToFile(data,PATH);
     }
 
@@ -71,7 +69,6 @@ public class Configuration {
             writeConfigToFile(dataFromServerService.getDataFromServer("https://smok-prot-5.herokuapp.com/Configuration?want=conf&IMSI="+getIMSI()));
         }
         getDataConfigFromFile();
-        /*TODO wersja nie xml, tylko po to ,zeby sprawdzić czy dziala, domyślnie ma byc pobieranie z formatu XML tak jak metodę wyżej */
     }
 
     public int getDatabaseCheckTime(){

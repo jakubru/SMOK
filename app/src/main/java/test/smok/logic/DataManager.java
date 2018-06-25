@@ -37,7 +37,6 @@ public class DataManager{
 
 
     public void send(){
-        //TODO wysyłanie pliku na serwer
         new HttpPost().sendFile("https://smok-prot-5.herokuapp.com/Server",
                 mContext.getFilesDir().getPath() + "/NetworkData" + Integer.toString(this.i-1) +".xml");
     }
